@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<Jogo>
+  <Cena Nome="Principal" Cor="-10185235">
+    <Objetos>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="200" />
+          <Propriedade PosicaoY="0" />
+          <Propriedade Texto="Jogo dos Triangulos" />
+          <Propriedade TamanhoFonte="8,25" />
+          <Propriedade Cor="-1" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="200" />
+          <Propriedade PosicaoY="200" />
+          <Propriedade Texto="Pressione Espaco" />
+          <Propriedade TamanhoFonte="8,25" />
+          <Propriedade Cor="-1" />
+        </Propriedades>
+        <Script Assembly="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Temp\Script_2.dll" Namespace="" />
+      </Objeto>
+    </Objetos>
+  </Cena>
+  <Cena Nome="Jogo" Cor="-16711936">
+    <Objetos>
+      <Objeto type="CogEngine.Objects.Triangulo">
+        <Propriedades>
+          <Propriedade Altura="50" />
+          <Propriedade Largura="100" />
+          <Propriedade PosicaoX="0" />
+          <Propriedade PosicaoY="200" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.Triangulo">
+        <Propriedades>
+          <Propriedade Altura="50" />
+          <Propriedade Largura="100" />
+          <Propriedade PosicaoX="120" />
+          <Propriedade PosicaoY="200" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.Triangulo">
+        <Propriedades>
+          <Propriedade Altura="90" />
+          <Propriedade Largura="140" />
+          <Propriedade PosicaoX="280" />
+          <Propriedade PosicaoY="200" />
+        </Propriedades>
+        <Script Assembly="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Temp\Script_4.dll" Namespace="" />
+      </Objeto>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="40" />
+          <Propriedade PosicaoY="170" />
+          <Propriedade Texto="A" />
+          <Propriedade TamanhoFonte="14" />
+          <Propriedade Cor="-16777216" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="150" />
+          <Propriedade PosicaoY="170" />
+          <Propriedade Texto="B" />
+          <Propriedade TamanhoFonte="14" />
+          <Propriedade Cor="-16777216" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="335" />
+          <Propriedade PosicaoY="170" />
+          <Propriedade Texto="C" />
+          <Propriedade TamanhoFonte="14" />
+          <Propriedade Cor="-16777216" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="180" />
+          <Propriedade PosicaoY="0" />
+          <Propriedade Texto="Qual o maior Triangulo?" />
+          <Propriedade TamanhoFonte="8,25" />
+          <Propriedade Cor="-16777216" />
+        </Propriedades>
+      </Objeto>
+    </Objetos>
+  </Cena>
+  <Cena Nome="Final" Cor="-8323073">
+    <Objetos>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="200" />
+          <Propriedade PosicaoY="50" />
+          <Propriedade Texto="Fim do Jogo" />
+          <Propriedade TamanhoFonte="12" />
+          <Propriedade Cor="-16777216" />
+        </Propriedades>
+      </Objeto>
+    </Objetos>
+  </Cena>
+</Jogo>

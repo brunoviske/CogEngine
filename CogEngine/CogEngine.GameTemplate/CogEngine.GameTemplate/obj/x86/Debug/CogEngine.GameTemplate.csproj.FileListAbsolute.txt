@@ -1,0 +1,10 @@
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.GameTemplate.exe
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.GameTemplate.pdb
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\CogEngine.GameTemplate.exe
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\CogEngine.GameTemplate.pdb
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.Objects.dll
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.Objects.pdb
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.GameTemplate.exe.config
+C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\FontePadrao.xnb
