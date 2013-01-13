@@ -14,6 +14,7 @@ namespace CogEngine.Objects.WinForms
         {
             _Texto = concentradorTexto;
             Text = _Texto.Nome;
+            AutoSize = true;
         }
 
         [Browsable(false)]
