@@ -23,9 +23,6 @@
 
                 public void Update(GameTime gameTime)
                 {
-                    if(Keyboard.GetState().IsKeyDown(Keys.Space))
-{
-           Jogo.CarregarCena("Jogo");
-}
+                    fdwqa
                 }
             }

@@ -42,7 +42,16 @@ namespace CogEngine.Objects
 
         public static string RetornarPastaXNA()
         {
-            return @"C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86";
+            string s = Environment.GetEnvironmentVariable("XNAGSv4");
+            if (s != null)
+            {
+                if (!s.EndsWith("\\")) s += "\\";
+                return s + @"References\Windows\x86";
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static void Iniciar(Plataforma plataforma)
