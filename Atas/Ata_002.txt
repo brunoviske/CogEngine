@@ -1,0 +1,14 @@
+12/01/2012
+Início: 14:15
+Fim: 16:00
+Ata reunião 002
+
+-Mudanças referentes a engine
+	-Acrescentar propriedades Z-Index
+	-Adicionar objetos imagem
+	-Audio
+	-Imagens PNG
+	-Escala XNA x Windows Forms
+	-Definifo idioma interface (português)
+	-Adequar as diferenças para plataformas x86 e x64
+	-Alterar o menu arquivo para adicionar as opções de salvar e alterar o 		projeto XML

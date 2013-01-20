@@ -1,0 +1,11 @@
+22/12/2012
+Início: 11:17
+Fim: 12:23
+Ata reunião 001
+
+-Alinhamento de expectativas
+-Entrega dos protótipos dia 05/01
+-Após entrega dos protótipos, estabelecer casos de uso e diagramas
+-Marcado para o dia 29 avaliação do desenvolvimento. Caso o mesmo esteja truncado, combinaremos data para 
+criação dos diagramas
+-Report a cada 2 dias sobre o status do desenvolvimento
