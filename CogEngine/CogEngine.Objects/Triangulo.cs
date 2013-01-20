@@ -56,7 +56,7 @@ namespace CogEngine.Objects
             }
         }
 
-        private static int Num = 1;
+        public static int Num = 1;
         private static string GetNome()
         {
             return "Triângulo " + Num++;

@@ -52,7 +52,7 @@ namespace CogEngine.Objects
             get { return typeof(ITexto); }
         }
 
-        private static int _Num = 1;
+        public static int _Num = 1;
         private static string GetNome()
         {
             return "Texto " + _Num++;

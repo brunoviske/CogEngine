@@ -43,6 +43,11 @@
             this.LblTextoScript = new System.Windows.Forms.Label();
             this.LblOnUpdate = new System.Windows.Forms.Label();
             this.CboUpdate = new System.Windows.Forms.ComboBox();
+            this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.novoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripEngine.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,8 +64,14 @@
             // 
             // arquivoToolStripMenuItem
             // 
+            this.arquivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.novoToolStripMenuItem,
+            this.abrirToolStripMenuItem,
+            this.salvarToolStripMenuItem,
+            this.fecharToolStripMenuItem,
+            this.sairToolStripMenuItem});
             this.arquivoToolStripMenuItem.Name = "arquivoToolStripMenuItem";
-            this.arquivoToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.arquivoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.arquivoToolStripMenuItem.Text = "Arquivo";
             // 
             // projetoToolStripMenuItem
@@ -70,27 +81,27 @@
             this.adicionarScriptToolStripMenuItem,
             this.compilarToolStripMenuItem});
             this.projetoToolStripMenuItem.Name = "projetoToolStripMenuItem";
-            this.projetoToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.projetoToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.projetoToolStripMenuItem.Text = "Projeto";
             // 
             // adicionarCenaToolStripMenuItem
             // 
             this.adicionarCenaToolStripMenuItem.Name = "adicionarCenaToolStripMenuItem";
-            this.adicionarCenaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.adicionarCenaToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.adicionarCenaToolStripMenuItem.Text = "Adicionar Cena";
             this.adicionarCenaToolStripMenuItem.Click += new System.EventHandler(this.adicionarCenaToolStripMenuItem_Click);
             // 
             // adicionarScriptToolStripMenuItem
             // 
             this.adicionarScriptToolStripMenuItem.Name = "adicionarScriptToolStripMenuItem";
-            this.adicionarScriptToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.adicionarScriptToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.adicionarScriptToolStripMenuItem.Text = "Adicionar Script";
             this.adicionarScriptToolStripMenuItem.Click += new System.EventHandler(this.adicionarScriptToolStripMenuItem_Click);
             // 
             // compilarToolStripMenuItem
             // 
             this.compilarToolStripMenuItem.Name = "compilarToolStripMenuItem";
-            this.compilarToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.compilarToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.compilarToolStripMenuItem.Text = "Compilar";
             this.compilarToolStripMenuItem.Click += new System.EventHandler(this.compilarToolStripMenuItem_Click);
             // 
@@ -174,6 +185,41 @@
             this.CboUpdate.ValueMember = "ID";
             this.CboUpdate.SelectedIndexChanged += new System.EventHandler(this.CboUpdate_SelectedIndexChanged);
             // 
+            // abrirToolStripMenuItem
+            // 
+            this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirToolStripMenuItem.Text = "Abrir";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
+            // 
+            // novoToolStripMenuItem
+            // 
+            this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.novoToolStripMenuItem.Text = "Novo";
+            this.novoToolStripMenuItem.Click += new System.EventHandler(this.novoToolStripMenuItem_Click);
+            // 
+            // fecharToolStripMenuItem
+            // 
+            this.fecharToolStripMenuItem.Name = "fecharToolStripMenuItem";
+            this.fecharToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fecharToolStripMenuItem.Text = "Fechar";
+            this.fecharToolStripMenuItem.Click += new System.EventHandler(this.fecharToolStripMenuItem_Click);
+            // 
+            // sairToolStripMenuItem
+            // 
+            this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sairToolStripMenuItem.Text = "Sair";
+            this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
+            // 
+            // salvarToolStripMenuItem
+            // 
+            this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
+            this.salvarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.salvarToolStripMenuItem.Text = "Salvar";
+            this.salvarToolStripMenuItem.Click += new System.EventHandler(this.salvarToolStripMenuItem_Click);
+            // 
             // FrmPrincipal
             // 
             this.AllowDrop = true;
@@ -219,6 +265,11 @@
         private System.Windows.Forms.ToolStripMenuItem adicionarScriptToolStripMenuItem;
         private System.Windows.Forms.Label LblOnUpdate;
         private System.Windows.Forms.ComboBox CboUpdate;
+        private System.Windows.Forms.ToolStripMenuItem novoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fecharToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salvarToolStripMenuItem;
 
 
     }
