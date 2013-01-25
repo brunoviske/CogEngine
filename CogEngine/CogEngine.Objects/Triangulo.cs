@@ -11,7 +11,7 @@ namespace CogEngine.Objects
         private FiguraXNAControl _TrianguloXNAControl;
         private string _Nome;
 
-        protected override FiguraWinControl FiguraWinControl
+        protected override AbstractImageControl FiguraWinControl
         {
             get
             {
@@ -23,7 +23,7 @@ namespace CogEngine.Objects
             }
         }
 
-        protected override FiguraXNAControl FiguraXNAControl
+        protected override AbstractImagemXNAControl FiguraXNAControl
         {
             get
             {

@@ -1,1 +1,0 @@
-C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplateContent\obj\x86\Debug\ResolveAssemblyReference.cache

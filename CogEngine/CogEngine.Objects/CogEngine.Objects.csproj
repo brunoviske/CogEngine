@@ -45,13 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractImagemObjeto.cs" />
     <Compile Include="Cena.cs" />
     <Compile Include="ConcentradorObjeto.cs" />
     <Compile Include="Configuracao.cs" />
     <Compile Include="FiguraObjeto.cs" />
     <Compile Include="GameProxy.cs" />
     <Compile Include="ICogEngineGame.cs" />
+    <Compile Include="ICustomImage.cs" />
     <Compile Include="IFigura.cs" />
+    <Compile Include="ImagemObjeto.cs" />
     <Compile Include="IObjetoScript.cs" />
     <Compile Include="ITexto.cs" />
     <Compile Include="NomeChangedEvent.cs" />
@@ -59,7 +62,13 @@
     <Compile Include="ObjetoAttribute.cs" />
     <Compile Include="ConcentradorTexto.cs" />
     <Compile Include="Plataforma.cs" />
+    <Compile Include="WinForms\AbstractImageControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinForms\CenaWinForm.cs" />
+    <Compile Include="WinForms\CustomImageWincontrol.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinForms\ICogEngineWinControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triangulo.cs" />
@@ -69,6 +78,8 @@
     <Compile Include="WinForms\TextoWinControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XNA\AbstractImagemXNAControl.cs" />
+    <Compile Include="XNA\CustomImageXNAControl.cs" />
     <Compile Include="XNA\ICogEngineXNAControl.cs" />
     <Compile Include="XNA\FiguraXNAControl.cs" />
     <Compile Include="XNA\TextoXNAControl.cs" />

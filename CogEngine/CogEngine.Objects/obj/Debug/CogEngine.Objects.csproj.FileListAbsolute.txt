@@ -1,5 +1,0 @@
-C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.Objects\bin\Debug\CogEngine.Objects.dll
-C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.Objects\bin\Debug\CogEngine.Objects.pdb
-C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.Objects\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.Objects\obj\Debug\CogEngine.Objects.dll
-C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.Objects\obj\Debug\CogEngine.Objects.pdb

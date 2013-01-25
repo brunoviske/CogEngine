@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace CogEngine.Objects.XNA
 {
-    public class FiguraXNAControl : ICogEngineXNAControl, IFigura
+    public class FiguraXNAControl : AbstractImagemXNAControl, IFigura
     {
         private FiguraObjeto _Figura;
 
@@ -18,56 +18,16 @@ namespace CogEngine.Objects.XNA
             _Figura = figura;
         }
 
-        public Texture2D Textura
+        public override string CaminhoImagem
         {
-            get;
-            private set;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (Textura == null)
+            get
             {
-                throw new Exception("O objeto Texture2D não foi inicializado. Faça chamada ao método LoadTexture antes.");
+                return _Figura.CaminhoArquivo;
             }
-            spriteBatch.Draw(Textura, new Vector2(PosicaoX, PosicaoY), Color.White);
-        }
-
-        public void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
-        {
-            using (FileStream f = new FileStream(_Figura.CaminhoArquivo, FileMode.Open))
+            set
             {
-                Textura = Texture2D.FromStream(graphicsDevice, f, Largura, Altura, false);
+                throw new NotImplementedException();
             }
-        }
-
-        public int Altura
-        {
-            get;
-            set;
-        }
-
-        public int Largura
-        {
-            get;
-            set;
-        }
-
-        public float PosicaoX
-        {
-            get;
-            set;
-        }
-
-        public float PosicaoY
-        {
-            get;
-            set;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            
         }
     }
 }
