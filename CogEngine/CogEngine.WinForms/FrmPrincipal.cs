@@ -96,75 +96,82 @@ namespace CogEngine.WinForms
 
         private void compilarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string pasta = Configuracao.RetornarPastaTemp(); ;
-            ExcluirArquivo(pasta);
-            string arquivo = Configuracao.RetornarArquivoJogo();
-            XmlDocument xml = new XmlDocument();
-            XmlNode node = xml.CreateNode(XmlNodeType.XmlDeclaration, "xml", null);
-            xml.AppendChild(node);
-
-            XmlElement jogo = xml.CreateElement("Jogo");
-            xml.AppendChild(jogo);
-
-            XmlElement controles;
-            XmlAttribute attribute;
-            XmlNode nodeCena;
-            XmlNode nodeProp;
-            Type type;
-
-            foreach (CenaWinForm cena in _ListaCena)
+            try
             {
-                nodeCena = xml.CreateNode(XmlNodeType.Element, "Cena", "");
-                jogo.AppendChild(nodeCena);
+                string pasta = Configuracao.RetornarPastaTemp(); ;
+                ExcluirArquivo(pasta);
+                string arquivo = Configuracao.RetornarArquivoJogo();
+                XmlDocument xml = new XmlDocument();
+                XmlNode node = xml.CreateNode(XmlNodeType.XmlDeclaration, "xml", null);
+                xml.AppendChild(node);
 
-                attribute = xml.CreateAttribute("Nome");
-                attribute.Value = cena.Nome;
-                nodeCena.Attributes.Append(attribute);
+                XmlElement jogo = xml.CreateElement("Jogo");
+                xml.AppendChild(jogo);
 
-                attribute = xml.CreateAttribute("Cor");
-                attribute.Value = cena.Cor.ToArgb().ToString();
-                nodeCena.Attributes.Append(attribute);
-                controles = xml.CreateElement("Objetos");
-                nodeCena.AppendChild(controles);
+                XmlElement controles;
+                XmlAttribute attribute;
+                XmlNode nodeCena;
+                XmlNode nodeProp;
+                Type type;
 
-                foreach (Control c in cena.Painel.Controls)
+                foreach (CenaWinForm cena in _ListaCena)
                 {
-                    if (c is ICogEngineWinControl)
+                    nodeCena = xml.CreateNode(XmlNodeType.Element, "Cena", "");
+                    jogo.AppendChild(nodeCena);
+
+                    attribute = xml.CreateAttribute("Nome");
+                    attribute.Value = cena.Nome;
+                    nodeCena.Attributes.Append(attribute);
+
+                    attribute = xml.CreateAttribute("Cor");
+                    attribute.Value = cena.Cor.ToArgb().ToString();
+                    nodeCena.Attributes.Append(attribute);
+                    controles = xml.CreateElement("Objetos");
+                    nodeCena.AppendChild(controles);
+
+                    foreach (Control c in cena.Painel.Controls)
                     {
-                        type = ((ICogEngineWinControl)c).Objeto.BaseInterface;
-                        node = xml.CreateNode(XmlNodeType.Element, "Objeto", "");
-                        attribute = xml.CreateAttribute("type");
-                        attribute.Value = ((ICogEngineWinControl)c).Objeto.GetType().FullName;
-                        node.Attributes.Append(attribute);
-
-                        XmlNode nodePropriedades = xml.CreateNode(XmlNodeType.Element, "Propriedades", "");
-                        node.AppendChild(nodePropriedades);
-
-                        foreach (PropertyInfo p in type.GetProperties())
+                        if (c is ICogEngineWinControl)
                         {
-                            if (p.CanWrite)
+                            type = ((ICogEngineWinControl)c).Objeto.BaseInterface;
+                            node = xml.CreateNode(XmlNodeType.Element, "Objeto", "");
+                            attribute = xml.CreateAttribute("type");
+                            attribute.Value = ((ICogEngineWinControl)c).Objeto.GetType().FullName;
+                            node.Attributes.Append(attribute);
+
+                            XmlNode nodePropriedades = xml.CreateNode(XmlNodeType.Element, "Propriedades", "");
+                            node.AppendChild(nodePropriedades);
+
+                            foreach (PropertyInfo p in type.GetProperties())
                             {
-                                nodeProp = xml.CreateNode(XmlNodeType.Element, "Propriedade", "");
-                                attribute = xml.CreateAttribute(p.Name);
-                                if (p.PropertyType == typeof(Color))
+                                if (p.CanWrite)
                                 {
-                                    attribute.Value = ((Color)p.GetValue(c, null)).ToArgb().ToString();
+                                    nodeProp = xml.CreateNode(XmlNodeType.Element, "Propriedade", "");
+                                    attribute = xml.CreateAttribute(p.Name);
+                                    if (p.PropertyType == typeof(Color))
+                                    {
+                                        attribute.Value = ((Color)p.GetValue(c, null)).ToArgb().ToString();
+                                    }
+                                    else
+                                    {
+                                        attribute.Value = Convert.ToString(p.GetValue(c, null));
+                                    }
+                                    nodeProp.Attributes.Append(attribute);
+                                    nodePropriedades.AppendChild(nodeProp);
                                 }
-                                else
-                                {
-                                    attribute.Value = Convert.ToString(p.GetValue(c, null));
-                                }
-                                nodeProp.Attributes.Append(attribute);
-                                nodePropriedades.AppendChild(nodeProp);
                             }
+                            AtrelarScript((ICogEngineWinControl)c, node);
+                            controles.AppendChild(node);
                         }
-                        AtrelarScript((ICogEngineWinControl)c, node);
-                        controles.AppendChild(node);
                     }
                 }
+                xml.Save(arquivo);
+                MessageBox.Show("Seu projeto foi compilado com sucesso!", "CogEngine - compilação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            xml.Save(arquivo);
-            MessageBox.Show("Seu projeto foi compilado com sucesso!", "CogEngine - compilação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao compilar projeto: " + ex.Message, "Erro - compilação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void AtrelarScript(ICogEngineWinControl control, XmlNode node)
@@ -195,7 +202,19 @@ namespace CogEngine.WinForms
             string dll = Configuracao.RetornarPastaTemp() + "\\" + script.NomeClasse + ".dll";
             string argumentos = @"/target:library /out:""{0}"" ""{1}"" /reference:""{2}"" /reference:""{3}\Microsoft.Xna.Framework.dll"" /reference:""{3}\Microsoft.Xna.Framework.Game.dll""";
             argumentos = string.Format(argumentos, dll, filePath, Configuracao.RetornarReferenciaCogEngine(), Configuracao.RetornarPastaXNA());
-            Process.Start(Configuracao.RetornarCaminhoCompilador(), argumentos);
+            Process p = new Process();
+            p.StartInfo.FileName = Configuracao.RetornarCaminhoCompilador();
+            p.StartInfo.Arguments = argumentos;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.Start();
+            string erro = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            if (p.ExitCode != 0)
+            {
+                int i = erro.IndexOf("error ");
+                throw new Exception(erro.Substring(i));
+            }
             return dll;
         }
 
