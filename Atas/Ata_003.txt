@@ -1,0 +1,14 @@
+26/01/2012
+Início: 14:30
+Fim: 16:20
+Ata reunião 003
+
+-Mudanças referentes a engine
+	-Implementação do componente de áudio (pendente)
+	-Função Salvar e Abrir projeto (pendente)
+	-Escala XNA x Windows Forms (pendente)
+	-Permitir alteração da fonte (tamanho, tipo da fonte, entre outros nos jogos XNA)
+	-Ajustes no layout do form
+	-Permitir a codificação de gatilhos para a engine
+	-Permitir a referência entre os objetos da engine
+	-Inserir um ponteiro funcional para o mouse nos jogos
