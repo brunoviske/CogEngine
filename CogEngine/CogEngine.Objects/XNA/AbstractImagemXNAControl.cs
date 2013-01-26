@@ -59,5 +59,12 @@ namespace CogEngine.Objects.XNA
             get;
             set;
         }
+
+
+        public int ZIndex
+        {
+            get;
+            set;
+        }
     }
 }

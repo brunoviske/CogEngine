@@ -30,5 +30,11 @@ namespace CogEngine.Objects
             get;
             set;
         }
+
+        int ZIndex
+        {
+            get;
+            set;
+        }
     }
 }

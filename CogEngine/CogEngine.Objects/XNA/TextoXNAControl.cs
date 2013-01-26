@@ -52,6 +52,12 @@ namespace CogEngine.Objects.XNA
             set;
         }
 
+        public int ZIndex
+        {
+            get;
+            set;
+        }
+
         public void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
             _Font = contentManager.Load<SpriteFont>("FontePadrao");

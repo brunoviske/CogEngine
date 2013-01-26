@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using CogEngine.Objects.XNA;
 
 namespace CogEngine.Objects
 {
@@ -22,11 +23,17 @@ namespace CogEngine.Objects
         public virtual void AdicionarObjeto(ConcentradorObjeto item)
         {
             _ListaObjeto.Add(item);
+            _ListaObjeto.Sort(Comparar);
         }
 
         public ConcentradorObjeto[] ListarObjetos()
         {
             return _ListaObjeto.ToArray();
+        }
+
+        private int Comparar(ConcentradorObjeto x, ConcentradorObjeto y)
+        {
+            return x.XNAControl.ZIndex.CompareTo(y.XNAControl.ZIndex);
         }
     }
 }

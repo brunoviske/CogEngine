@@ -27,6 +27,12 @@ namespace CogEngine.Objects
             set;
         }
 
+        int ZIndex
+        {
+            get;
+            set;
+        }
+
         string CaminhoImagem { get; set; }
     }
 }

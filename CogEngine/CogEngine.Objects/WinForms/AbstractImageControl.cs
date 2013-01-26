@@ -77,12 +77,18 @@ namespace CogEngine.Objects.WinForms
         {
             return this;
         }
+        
+        public int ZIndex
+        {
+            get;
+            set;
+        }
 
         [Browsable(false)]
         public string IDScript
         {
             get;
             set;
-        }
+        }        
     }
 }

@@ -93,6 +93,12 @@ namespace CogEngine.Objects.WinForms
             }
         }
 
+        public int ZIndex
+        {
+            get;
+            set;
+        }
+
         [Browsable(false)]
         public string IDScript
         {

@@ -7,5 +7,6 @@ namespace CogEngine.Objects.XNA
     {
         void Draw(SpriteBatch spriteBatch);
         void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice);
+        int ZIndex { get; set; }
     }
 }

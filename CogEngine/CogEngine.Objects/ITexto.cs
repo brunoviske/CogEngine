@@ -9,5 +9,6 @@ namespace CogEngine.Objects
         string Texto { get; set; }
         float TamanhoFonte { get; set; }
         Color Cor { get; set; }
+        int ZIndex { get; set; }
     }
 }

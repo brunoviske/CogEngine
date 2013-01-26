@@ -1,0 +1,13 @@
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\CogEngine.WinForms.exe.config
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\CogEngine.WinForms.exe
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\CogEngine.WinForms.pdb
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\CogEngine.Objects.dll
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\CogEngine.Objects.pdb
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\CogEngine.WinForms.FrmPrincipal.resources
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\CogEngine.WinForms.FrmScript.resources
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\CogEngine.WinForms.Properties.Resources.resources
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\CogEngine.WinForms.exe
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\CogEngine.WinForms.pdb

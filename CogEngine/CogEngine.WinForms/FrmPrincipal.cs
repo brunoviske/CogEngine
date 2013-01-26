@@ -466,6 +466,7 @@ namespace CogEngine.WinForms
                                     ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).Texto = ((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[2].Attributes["Texto"].Value.ToString();
                                     ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).TamanhoFonte = float.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[3].Attributes["TamanhoFonte"].Value.ToString());
                                     ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).Cor = System.Drawing.Color.FromArgb(int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[4].Attributes["Cor"].Value.ToString()));
+                                    ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).ZIndex = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[5].Attributes["ZIndex"].Value.ToString());
 
                                     if (obj.WinControl != null)
                                     {
@@ -485,6 +486,7 @@ namespace CogEngine.WinForms
                                     ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).Largura = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[1].Attributes["Largura"].Value.ToString());
                                     ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).PosicaoX = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[2].Attributes["PosicaoX"].Value.ToString());
                                     ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).PosicaoY = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[3].Attributes["PosicaoY"].Value.ToString());
+                                    ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).ZIndex = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[4].Attributes["ZIndex"].Value.ToString());
 
                                     if (objTriangulo.WinControl != null)
                                     {
