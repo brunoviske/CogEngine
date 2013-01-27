@@ -11,3 +11,7 @@ D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\GenerateResource.
 D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\GenerateResource.write.1.tlog
 D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\CogEngine.WinForms.exe
 D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\obj\x86\Debug\CogEngine.WinForms.pdb
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\Resources\Restaurar.png
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\Resources\Minimizar.png
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\Resources\Maximizar.png
+D:\GitHub\CogEngine\CogEngine\CogEngine.WinForms\bin\Debug\Resources\Fechar.png

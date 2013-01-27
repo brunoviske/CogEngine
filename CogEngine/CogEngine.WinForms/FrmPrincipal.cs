@@ -10,6 +10,7 @@ using System.Xml;
 using CogEngine.Objects;
 using CogEngine.Objects.WinForms;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace CogEngine.WinForms
 {
@@ -17,8 +18,41 @@ namespace CogEngine.WinForms
     {
         List<CenaWinForm> _ListaCena;
         CenaWinForm _CenaAtual;
-
+        ToolTip toolMaxRest = new ToolTip();
+        
         const string VAZIO = "(Vazio)";
+
+        #region Variáveis para arredondamento das bordas
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+        int nLeftRect, // x-coordenada da quina superior esquerda
+        int nTopRect, // y-coordenada da quina superior esquerda
+        int nRightRect, // x-coordenada da quina inferior direita
+        int nBottomRect, // y-coordenada da quina inferior direita
+        int nWidthEllipse, // largura da elipse
+        int nHeightEllipse // altura da ellipse
+        );
+        #endregion
+
+        #region Controle Drag/Drop do form
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        private void FrmPrincipal_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        #endregion
 
         public new System.Windows.Forms.Control.ControlCollection Controls
         {
@@ -31,6 +65,7 @@ namespace CogEngine.WinForms
         public FrmPrincipal()
         {
             InitializeComponent();
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width - 10, Height - 10, 20, 20));
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -301,7 +336,7 @@ namespace CogEngine.WinForms
             }
         }
 
-        private void BtnAdicionar_Click(object sender, EventArgs e)
+        private void LstControles_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (LstControles.SelectedItem != null)
             {
@@ -612,6 +647,11 @@ namespace CogEngine.WinForms
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FecharEngine();            
+        }
+
+        private void FecharEngine()
+        {
             if (MessageBox.Show("Deseja encerrar a engine?", "CogEngine - Sair", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 this.Close();
         }
@@ -629,7 +669,17 @@ namespace CogEngine.WinForms
             Configuracao.Iniciar(Plataforma.Forms);
             LoadItems();
             NewProject();
+            SetToolTip();
             CboUpdate.Items.Add(VAZIO);
+        }
+
+        private void SetToolTip()
+        {
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(btnFechar, "Fechar");
+            tt.SetToolTip(btnMinimizar, "Minimizar");
+
+            toolMaxRest.ShowAlways = true;
         }
 
         private void ClearEngine()
@@ -640,6 +690,39 @@ namespace CogEngine.WinForms
             GrpGameView.Controls.Clear();
             ConcentradorTexto._Num = 1;
             Triangulo.Num = 1;
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnMaximizar_Click(object sender, EventArgs e)
+        {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            toolMaxRest.RemoveAll();
+
+            if (this.WindowState != FormWindowState.Maximized)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                toolMaxRest.SetToolTip(btnMaximizar, "Restaurar");
+                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width - 0, Height - 0, 0, 0));                
+                btnMaximizar.Image = Image.FromFile(@"Resources\Restaurar.png");
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width - 10, Height - 10, 20, 20));
+                toolMaxRest.SetToolTip(btnMaximizar, "Maximizar");
+                btnMaximizar.Image = Image.FromFile(@"Resources\Maximizar.png");
+            }
+
+            this.FormBorderStyle = FormBorderStyle.None;
+        }
+
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            FecharEngine();
         }
     }
 }
