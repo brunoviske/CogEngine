@@ -1,15 +1,35 @@
 <?xml version="1.0"?>
 <Jogo>
-  <Cena Nome="Principal" Cor="-256">
+  <Cena Nome="Principal" Cor="-1">
     <Objetos>
+      <Objeto type="CogEngine.Objects.ConcentradorTexto">
+        <Propriedades>
+          <Propriedade PosicaoX="365" />
+          <Propriedade PosicaoY="0" />
+          <Propriedade Texto="Texto 1" />
+          <Propriedade TamanhoFonte="14" />
+          <Propriedade Cor="-16777216" />
+          <Propriedade ZIndex="0" />
+        </Propriedades>
+      </Objeto>
       <Objeto type="CogEngine.Objects.ImagemObjeto">
         <Propriedades>
-          <Propriedade Altura="160" />
-          <Propriedade Largura="200" />
-          <Propriedade PosicaoX="0" />
-          <Propriedade PosicaoY="0" />
+          <Propriedade Altura="120" />
+          <Propriedade Largura="150" />
+          <Propriedade PosicaoX="200" />
+          <Propriedade PosicaoY="150" />
           <Propriedade ZIndex="0" />
-          <Propriedade CaminhoImagem="D:\GitHub\CogEngine\CogEngine\Imagens\Imagem13" />
+          <Propriedade CaminhoImagem="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Imagens\Imagem27" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.ImagemObjeto">
+        <Propriedades>
+          <Propriedade Altura="120" />
+          <Propriedade Largura="150" />
+          <Propriedade PosicaoX="420" />
+          <Propriedade PosicaoY="150" />
+          <Propriedade ZIndex="0" />
+          <Propriedade CaminhoImagem="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Imagens\Imagem29" />
         </Propriedades>
       </Objeto>
     </Objetos>

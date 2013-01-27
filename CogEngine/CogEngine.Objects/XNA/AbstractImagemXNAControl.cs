@@ -33,7 +33,7 @@ namespace CogEngine.Objects.XNA
             {
                 throw new Exception("O objeto Texture2D não foi inicializado. Faça chamada ao método LoadTexture antes.");
             }
-            spriteBatch.Draw(Textura, new Vector2(PosicaoX, PosicaoY), Color.White);
+            spriteBatch.Draw(Textura, new Vector2(PosicaoX, PosicaoY), null, Color.White);
         }
 
         public int Altura

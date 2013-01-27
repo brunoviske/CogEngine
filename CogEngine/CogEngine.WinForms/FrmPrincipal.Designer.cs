@@ -153,7 +153,7 @@
             this.GrpGameView.BackColor = System.Drawing.SystemColors.Control;
             this.GrpGameView.Location = new System.Drawing.Point(156, 69);
             this.GrpGameView.Name = "GrpGameView";
-            this.GrpGameView.Size = new System.Drawing.Size(800, 600);
+            this.GrpGameView.Size = new System.Drawing.Size(800, 480);
             this.GrpGameView.TabIndex = 1;
             this.GrpGameView.TabStop = false;
             // 
@@ -171,7 +171,7 @@
             // PropertyControl
             // 
             this.PropertyControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PropertyControl.Location = new System.Drawing.Point(962, 463);
+            this.PropertyControl.Location = new System.Drawing.Point(962, 346);
             this.PropertyControl.Name = "PropertyControl";
             this.PropertyControl.Size = new System.Drawing.Size(200, 206);
             this.PropertyControl.TabIndex = 4;
@@ -181,7 +181,7 @@
             this.TreeViewObjetos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TreeViewObjetos.Location = new System.Drawing.Point(962, 115);
             this.TreeViewObjetos.Name = "TreeViewObjetos";
-            this.TreeViewObjetos.Size = new System.Drawing.Size(200, 342);
+            this.TreeViewObjetos.Size = new System.Drawing.Size(200, 195);
             this.TreeViewObjetos.TabIndex = 5;
             this.TreeViewObjetos.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewObjetos_AfterSelect);
             // 
@@ -192,7 +192,7 @@
             this.LstScript.FormattingEnabled = true;
             this.LstScript.Location = new System.Drawing.Point(12, 340);
             this.LstScript.Name = "LstScript";
-            this.LstScript.Size = new System.Drawing.Size(138, 329);
+            this.LstScript.Size = new System.Drawing.Size(138, 212);
             this.LstScript.TabIndex = 6;
             // 
             // LblTextoScript
@@ -270,6 +270,7 @@
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnMaximizar.TabIndex = 10;
             this.btnMaximizar.TabStop = false;
+            this.btnMaximizar.Visible = false;
             this.btnMaximizar.Click += new System.EventHandler(this.btnMaximizar_Click);
             // 
             // FrmPrincipal
@@ -277,7 +278,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1185, 691);
+            this.ClientSize = new System.Drawing.Size(1185, 600);
             this.Controls.Add(this.btnMinimizar);
             this.Controls.Add(this.btnFechar);
             this.Controls.Add(this.btnMaximizar);
@@ -293,6 +294,7 @@
             this.Controls.Add(this.menuStripEngine);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStripEngine;
+            this.MinimizeBox = false;
             this.Name = "FrmPrincipal";
             this.Text = "CogEngine";
             this.Load += new System.EventHandler(this.FrmPrincipal_Load);
