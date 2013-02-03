@@ -783,5 +783,21 @@ namespace CogEngine.WinForms
         {
             FecharEngine();
         }
+
+        private void LstScript_DoubleClick(object sender, EventArgs e)
+        {
+            //Obtenho o script para edição
+            if (LstScript.SelectedItem != null)
+            {
+                FrmScript frmScript = new FrmScript();
+                frmScript.CodigoScript = ((Script)LstScript.SelectedItem).CodigoScript;
+                frmScript.NomeScript = ((Script)LstScript.SelectedItem).NomeAmigavel;
+                frmScript.ShowDialog();
+
+                //Atribuo as alterações
+                ((Script)LstScript.SelectedItem).CodigoScript = frmScript.CodigoScript;
+                ((Script)LstScript.SelectedItem).NomeAmigavel = frmScript.NomeScript;
+            }
+        }
     }
 }

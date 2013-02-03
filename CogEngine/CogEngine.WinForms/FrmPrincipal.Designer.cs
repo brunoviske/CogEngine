@@ -194,6 +194,7 @@
             this.LstScript.Name = "LstScript";
             this.LstScript.Size = new System.Drawing.Size(138, 212);
             this.LstScript.TabIndex = 6;
+            this.LstScript.DoubleClick += new System.EventHandler(this.LstScript_DoubleClick);
             // 
             // LblTextoScript
             // 

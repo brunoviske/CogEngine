@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace CogEngine.WinForms
@@ -23,6 +18,10 @@ namespace CogEngine.WinForms
             {
                 return TxtNomeScript.Text;
             }
+            set
+            {
+                TxtNomeScript.Text = value;
+            }
         }
 
         public string CodigoScript
@@ -30,6 +29,10 @@ namespace CogEngine.WinForms
             get
             {
                 return RTxtCodigoScript.Text;
+            }
+            set
+            {
+                RTxtCodigoScript.Text = value;
             }
         }
 
@@ -39,12 +42,12 @@ namespace CogEngine.WinForms
         {
             if (TxtNomeScript.Text.Trim() == "")
             {
-                MessageBox.Show("Por favor, informe um nome para seu script");
+                MessageBox.Show("Por favor, informe um nome para seu script.", "CogEngine", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             if (RTxtCodigoScript.Text.Trim() == "")
             {
-                MessageBox.Show("Por favor, escreva o código do seu script");
+                MessageBox.Show("Por favor, escreva o código do seu script.", "CogEngine", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             OK = true;
@@ -53,7 +56,17 @@ namespace CogEngine.WinForms
 
         private void FrmScript_Load(object sender, EventArgs e)
         {
+            SetTextFormat();
             TxtNomeScript.Text = Script.GetNome();
+        }
+
+        private void SetTextFormat()
+        {
+            RTxtCodigoScript.Multiline = true;
+            RTxtCodigoScript.AcceptsTab = true;
+            RTxtCodigoScript.ScrollBars = RichTextBoxScrollBars.ForcedBoth;
+            RTxtCodigoScript.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
+            RTxtCodigoScript.SelectionColor = Color.Black;
         }
     }
 }
