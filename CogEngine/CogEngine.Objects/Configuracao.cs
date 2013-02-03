@@ -32,6 +32,9 @@ namespace CogEngine.Objects
 
         private static string RetornarCaminhoAbsoluto(string caminhoRelativo)
         {
+            if (!Directory.Exists(caminhoRelativo))
+                Directory.CreateDirectory(caminhoRelativo);
+
             return new DirectoryInfo(caminhoRelativo).FullName;
         }
 

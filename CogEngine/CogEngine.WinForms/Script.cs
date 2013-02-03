@@ -13,7 +13,7 @@ namespace CogEngine.WinForms
             NomeClasse = GetNome();
         }
 
-        public string ID { get; private set; }
+        public string ID { get; set; }
         public string NomeAmigavel { get; set; }
         public string NomeClasse { get; private set; }
         public string CodigoScript { get; set; }

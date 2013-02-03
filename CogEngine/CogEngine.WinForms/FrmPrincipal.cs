@@ -439,8 +439,15 @@ namespace CogEngine.WinForms
         {
             OpenFileDialog op = null;
             XmlDocument document = null;
-            XmlNodeList cenas = null;
 
+            
+            PropertyInfo p;
+            Type type = typeof(ConcentradorObjeto);
+            ConcentradorObjeto o;
+            Type typeOriginal;
+            Type baseInterface;
+            XmlAttribute attribute;
+            CenaWinForm cena = null;
             string caminhoArquivo = string.Empty;
 
             op = new OpenFileDialog();
@@ -448,7 +455,7 @@ namespace CogEngine.WinForms
             op.Title = "CogEngine - Abrir";
             op.ShowDialog();
 
-            //Obtenho o caminho do txt
+            //Obtenho o caminho do XML
             caminhoArquivo = op.FileName;
 
             if (!string.IsNullOrEmpty(caminhoArquivo) && !string.IsNullOrEmpty(caminhoArquivo))
@@ -460,85 +467,86 @@ namespace CogEngine.WinForms
                 Configuracao.Iniciar(Plataforma.Forms);
                 LoadItems();
                 CboUpdate.Items.Add(VAZIO);
+                CboUpdate.SelectedIndex = 0;
 
-                //Carrego o xml e aplico os nós para os controles
                 document = new XmlDocument();
                 document.Load(caminhoArquivo);
-                cenas = document.GetElementsByTagName("Cena");
+
+                XmlNode scripts = document.GetElementsByTagName("Scripts")[0];
+
+                foreach (XmlNode scriptNode in scripts.ChildNodes)
+                {
+                    Script script = new Script();
+                    script.NomeAmigavel = scriptNode.Attributes.GetNamedItem("Nome").Value;
+                    script.ID = scriptNode.Attributes.GetNamedItem("ID").Value;
+                    script.CodigoScript = scriptNode.Attributes.GetNamedItem("Codigo").Value;
+                    LstScript.Items.Add(script);
+                    CboUpdate.Items.Add(script);
+                }
+
+                XmlNode jogo = document.GetElementsByTagName("Jogo")[0];
 
                 //Itero as cenas do jogo
-                foreach (XmlNode cena in cenas)
+                foreach (XmlNode cenaNode in jogo.ChildNodes)
                 {
-                    //Crio o objeto cena para adiciona-lo ao tree-view
-                    CenaWinForm cenaDoc = new CenaWinForm();
-                    cenaDoc.Nome = cena.Attributes["Nome"].Value.ToString();
-                    cenaDoc.Cor = System.Drawing.Color.FromArgb(int.Parse(cena.Attributes["Cor"].Value.ToString()));
-                    cenaDoc.Painel.Size = GrpGameView.Size;
-                    cenaDoc.OnNomeChanged += OnNomeChanged;
-
+                    cena = new CenaWinForm();
+                    cena.Nome = cenaNode.Attributes["Nome"].Value;
+                    cena.Cor = System.Drawing.Color.FromArgb(int.Parse(cenaNode.Attributes["Cor"].Value));
+                    
+                    cena.Painel.Size = GrpGameView.Size;
+                    cena.OnNomeChanged += OnNomeChanged;
+                    
                     //Adiciono o objeto o tree view
-                    TreeViewObjetos.Nodes.Add(cenaDoc.ID, cenaDoc.Nome);
+                    TreeViewObjetos.Nodes.Add(cena.ID, cena.Nome);
 
                     //Adiciono a lista de cenas para controle
-                    _ListaCena.Add(cenaDoc);
+                    _ListaCena.Add(cena);
 
-
-                    //Itero os nós da cena
-                    foreach (var objeto in ((XmlNode)cena).ChildNodes)
+                    //Itero os objetos
+                    foreach (XmlNode objetoNode in cenaNode.SelectNodes("Objetos/Objeto"))
                     {
-                        for (int i = 0; i < ((XmlNode)objeto).ChildNodes.Count; i++)
+                        typeOriginal = Assembly.GetAssembly(type).GetType(objetoNode.Attributes["type"].Value);
+                        o = (ConcentradorObjeto)typeOriginal.GetConstructor(Type.EmptyTypes).Invoke(null);
+                        baseInterface = o.BaseInterface;
+                        foreach (XmlNode nodeProp in objetoNode.ChildNodes[0].ChildNodes)
                         {
-
-                            switch (((XmlNode)objeto).ChildNodes[i].Attributes["type"].Value.ToString())
+                            attribute = nodeProp.Attributes[0];
+                            p = baseInterface.GetProperty(attribute.Name);
+                            if (p.PropertyType == typeof(int))
                             {
-                                case "CogEngine.Objects.ConcentradorTexto":
-
-                                    ObjetoAttribute otxt = (ObjetoAttribute)LstControles.Items[1];
-                                    ConcentradorObjeto obj = (ConcentradorObjeto)otxt.TipoRelacionado.GetConstructor(Type.EmptyTypes).Invoke(null);
-
-                                    ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).PosicaoX = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[0].Attributes["PosicaoX"].Value.ToString());
-                                    ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).PosicaoY = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[1].Attributes["PosicaoY"].Value.ToString());
-                                    ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).Texto = ((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[2].Attributes["Texto"].Value.ToString();
-                                    ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).TamanhoFonte = float.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[3].Attributes["TamanhoFonte"].Value.ToString());
-                                    ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).Cor = System.Drawing.Color.FromArgb(int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[4].Attributes["Cor"].Value.ToString()));
-                                    ((CogEngine.Objects.WinForms.TextoWinControl)(obj.WinControl)).ZIndex = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[5].Attributes["ZIndex"].Value.ToString());
-
-                                    if (obj.WinControl != null)
-                                    {
-                                        Control c = obj.WinControl.InitWinControl();
-                                        c.Click += ControClick;
-                                        cenaDoc.AdicionarObjeto(obj);
-                                        TreeViewObjetos.Nodes[cenaDoc.ID].Nodes.Add(obj.Nome);
-                                    }
-
-
-                                    break;
-                                case "CogEngine.Objects.Triangulo":
-                                    ObjetoAttribute ot = (ObjetoAttribute)LstControles.Items[0];
-                                    ConcentradorObjeto objTriangulo = (ConcentradorObjeto)ot.TipoRelacionado.GetConstructor(Type.EmptyTypes).Invoke(null);
-
-                                    ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).Altura = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[0].Attributes["Altura"].Value.ToString());
-                                    ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).Largura = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[1].Attributes["Largura"].Value.ToString());
-                                    ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).PosicaoX = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[2].Attributes["PosicaoX"].Value.ToString());
-                                    ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).PosicaoY = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[3].Attributes["PosicaoY"].Value.ToString());
-                                    ((CogEngine.Objects.WinForms.FiguraWinControl)(objTriangulo.WinControl)).ZIndex = int.Parse(((XmlNode)objeto).ChildNodes[i].ChildNodes[0].ChildNodes[4].Attributes["ZIndex"].Value.ToString());
-
-                                    if (objTriangulo.WinControl != null)
-                                    {
-                                        Control c = objTriangulo.WinControl.InitWinControl();
-                                        c.Click += ControClick;
-                                        cenaDoc.AdicionarObjeto(objTriangulo);
-                                        TreeViewObjetos.Nodes[cenaDoc.ID].Nodes.Add(objTriangulo.Nome);
-                                    }
-
-                                    break;
-                                default:
-                                    break;
+                                p.SetValue(o.WinControl, Convert.ToInt32(attribute.Value), null);
+                            }
+                            else if (p.PropertyType == typeof(float))
+                            {
+                                p.SetValue(o.WinControl, float.Parse(attribute.Value), null);
+                            }
+                            else if (p.PropertyType == typeof(System.Drawing.Color))
+                            {
+                                System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
+                                p.SetValue(o.WinControl, c, null);
+                            }
+                            else
+                            {
+                                p.SetValue(o.WinControl, attribute.Value, null);
                             }
                         }
+
+                        //Atribuo o script caso exista
+                        if (objetoNode.ChildNodes.Count > 1) 
+                            o.WinControl.IDScript = objetoNode.ChildNodes[1].Attributes[1].Value;
+
+                        //Crio o controle, adiciono seu evento para exibição dos detalhes e os adiciono na cena                       
+                        Control ctr = o.WinControl.InitWinControl();
+                        ctr.Click += ControClick;
+                        cena.AdicionarObjeto(o);
+                        TreeViewObjetos.Nodes[cena.ID].Nodes.Add(o.Nome);                     
                     }
                 }
             }
+
+            //Carrego a primeira cena caso haja alguma
+            if (_ListaCena.Count > 0)
+                CarregarCena(_ListaCena[0]);
         }
 
         private void salvarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -552,7 +560,6 @@ namespace CogEngine.WinForms
                 sf.Title = "CogEngine - Salvar Projeto";
                 sf.DefaultExt = "xml";
                 sf.Filter = "XML|*.xml";
-                //sf.CheckFileExists = true;
                 sf.CheckPathExists = true;
                 sf.FilterIndex = 2;
                 sf.RestoreDirectory = true;
@@ -561,22 +568,22 @@ namespace CogEngine.WinForms
                     arquivo = sf.FileName;
                 else
                     return;
-
-                //TODO: Verificar arquivo antes de sobreescrever
-                if (File.Exists(arquivo))
-                    File.Delete(arquivo);
-
+                
                 XmlDocument xml = new XmlDocument();
                 XmlNode node = xml.CreateNode(XmlNodeType.XmlDeclaration, "xml", null);
                 xml.AppendChild(node);
 
-                XmlElement jogo = xml.CreateElement("Jogo");
-                xml.AppendChild(jogo);
+                XmlElement pjt = xml.CreateElement("Projeto");
+                xml.AppendChild(pjt);
 
+                XmlElement jogo = xml.CreateElement("Jogo");
+                pjt.AppendChild(jogo);
+                
                 XmlElement controles;
                 XmlAttribute attribute;
                 XmlNode nodeCena;
                 XmlNode nodeProp;
+                XmlNode nodeScript;
                 Type type;
 
                 foreach (CenaWinForm cena in _ListaCena)
@@ -607,6 +614,28 @@ namespace CogEngine.WinForms
                             XmlNode nodePropriedades = xml.CreateNode(XmlNodeType.Element, "Propriedades", "");
                             node.AppendChild(nodePropriedades);
 
+                            //Se houver script no objeto, armazeno no xml
+                            if (((ICogEngineWinControl)c).IDScript != null)
+                            {
+                                Script s = RetornarScript(((ICogEngineWinControl)c).IDScript);
+                                if (s != null)
+                                {
+                                    nodeScript = node.OwnerDocument.CreateNode(XmlNodeType.Element, "ScriptObjeto", "");
+
+                                    attribute = node.OwnerDocument.CreateAttribute("NomeScript");
+                                    attribute.Value = s.NomeAmigavel;
+                                    nodeScript.Attributes.Append(attribute);
+
+                                    attribute = node.OwnerDocument.CreateAttribute("IDScript");
+                                    attribute.Value = s.ID;
+                                    nodeScript.Attributes.Append(attribute);
+
+                                    node.AppendChild(nodeScript);
+                                }
+                            }
+                            
+                            controles.AppendChild(node);
+
                             foreach (PropertyInfo p in type.GetProperties())
                             {
                                 if (p.CanWrite)
@@ -624,13 +653,41 @@ namespace CogEngine.WinForms
                                     nodeProp.Attributes.Append(attribute);
                                     nodePropriedades.AppendChild(nodeProp);
                                 }
-                            }
-                            AtrelarScript((ICogEngineWinControl)c, node);
-                            controles.AppendChild(node);
+                            }                            
                         }
                     }
                 }
+
+                //Crio nó para armazenamento dos scripts da engine
+                node = xml.CreateNode(XmlNodeType.Element, "Scripts", "");
+
+                foreach (var item in LstScript.Items)
+                {
+                    nodeScript = xml.CreateNode(XmlNodeType.Element, "Script", "");
+
+                    attribute = xml.CreateAttribute("ID");
+                    attribute.Value = ((CogEngine.WinForms.Script)(item)).ID;
+                    nodeScript.Attributes.Append(attribute);
+
+                    attribute = xml.CreateAttribute("Nome");
+                    attribute.Value = ((CogEngine.WinForms.Script)(item)).NomeAmigavel;
+                    nodeScript.Attributes.Append(attribute);
+
+                    attribute = xml.CreateAttribute("Codigo");
+                    attribute.Value = ((CogEngine.WinForms.Script)(item)).CodigoScript;
+                    nodeScript.Attributes.Append(attribute);
+
+                    node.AppendChild(nodeScript);
+                }
+
+                pjt.AppendChild(node);
+
+                //Se o arquivo já existir sobreescrevo
+                if (File.Exists(arquivo))
+                    File.Delete(arquivo);
+                
                 xml.Save(arquivo);
+                
                 MessageBox.Show("Seu projeto foi salvo com sucesso!", "CogEngine", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception)
@@ -671,6 +728,7 @@ namespace CogEngine.WinForms
             NewProject();
             SetToolTip();
             CboUpdate.Items.Add(VAZIO);
+            CboUpdate.SelectedIndex = 0;
         }
 
         private void SetToolTip()
@@ -688,6 +746,7 @@ namespace CogEngine.WinForms
             LstScript.Items.Clear();
             TreeViewObjetos.Nodes.Clear();
             GrpGameView.Controls.Clear();
+            CboUpdate.Items.Clear();
             ConcentradorTexto._Num = 1;
             Triangulo.Num = 1;
         }
