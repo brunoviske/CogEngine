@@ -799,5 +799,22 @@ namespace CogEngine.WinForms
                 ((Script)LstScript.SelectedItem).NomeAmigavel = frmScript.NomeScript;
             }
         }
+
+        private void adicionarSomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.openFileDialog1.Title = "Procurar som";
+            this.openFileDialog1.Filter = "Images (*.WAV;*.MP3;)|*.WAV;*.MP3|" + "All files (*.*)|*.*";
+            this.openFileDialog1.InitialDirectory = @"C:\";
+            DialogResult result = openFileDialog1.ShowDialog();
+
+            if (!LstSons.Items.Contains(openFileDialog1.SafeFileName))
+            {
+                LstSons.Items.Add(openFileDialog1.SafeFileName);
+            }
+            else {
+                MessageBox.Show("Esse arquivo já está incluso na lista de sons!");
+            }
+
+        }
     }
 }

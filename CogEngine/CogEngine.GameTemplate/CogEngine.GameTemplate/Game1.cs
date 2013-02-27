@@ -33,6 +33,7 @@ namespace CogEngine.GameTemplate
             Content.RootDirectory = "Content";
             _ListaCena = new List<Cena>();
             _GameProxy = new GameProxy(this);
+            IsMouseVisible = true;
         }
 
         /// <summary>

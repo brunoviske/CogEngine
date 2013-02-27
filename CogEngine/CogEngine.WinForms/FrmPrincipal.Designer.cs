@@ -51,6 +51,10 @@
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.btnFechar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
+            this.LblSons = new System.Windows.Forms.Label();
+            this.LstSons = new System.Windows.Forms.ListBox();
+            this.adicionarSomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStripEngine.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFechar)).BeginInit();
@@ -121,6 +125,7 @@
             this.projetoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.adicionarCenaToolStripMenuItem,
             this.adicionarScriptToolStripMenuItem,
+            this.adicionarSomToolStripMenuItem,
             this.compilarToolStripMenuItem});
             this.projetoToolStripMenuItem.Name = "projetoToolStripMenuItem";
             this.projetoToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
@@ -159,8 +164,8 @@
             // 
             // LstControles
             // 
-            this.LstControles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LstControles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LstControles.FormattingEnabled = true;
             this.LstControles.Location = new System.Drawing.Point(12, 85);
             this.LstControles.Name = "LstControles";
@@ -187,19 +192,19 @@
             // 
             // LstScript
             // 
-            this.LstScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LstScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LstScript.FormattingEnabled = true;
-            this.LstScript.Location = new System.Drawing.Point(12, 340);
+            this.LstScript.Location = new System.Drawing.Point(12, 336);
             this.LstScript.Name = "LstScript";
-            this.LstScript.Size = new System.Drawing.Size(138, 212);
+            this.LstScript.Size = new System.Drawing.Size(138, 95);
             this.LstScript.TabIndex = 6;
             this.LstScript.DoubleClick += new System.EventHandler(this.LstScript_DoubleClick);
             // 
             // LblTextoScript
             // 
             this.LblTextoScript.AutoSize = true;
-            this.LblTextoScript.Location = new System.Drawing.Point(9, 324);
+            this.LblTextoScript.Location = new System.Drawing.Point(9, 320);
             this.LblTextoScript.Name = "LblTextoScript";
             this.LblTextoScript.Size = new System.Drawing.Size(98, 13);
             this.LblTextoScript.TabIndex = 0;
@@ -274,12 +279,42 @@
             this.btnMaximizar.Visible = false;
             this.btnMaximizar.Click += new System.EventHandler(this.btnMaximizar_Click);
             // 
+            // LblSons
+            // 
+            this.LblSons.AutoSize = true;
+            this.LblSons.Location = new System.Drawing.Point(12, 438);
+            this.LblSons.Name = "LblSons";
+            this.LblSons.Size = new System.Drawing.Size(90, 13);
+            this.LblSons.TabIndex = 13;
+            this.LblSons.Text = "Sons Disponíveis";
+            // 
+            // LstSons
+            // 
+            this.LstSons.FormattingEnabled = true;
+            this.LstSons.Location = new System.Drawing.Point(12, 455);
+            this.LstSons.Name = "LstSons";
+            this.LstSons.Size = new System.Drawing.Size(138, 95);
+            this.LstSons.TabIndex = 14;
+            // 
+            // adicionarSomToolStripMenuItem
+            // 
+            this.adicionarSomToolStripMenuItem.Name = "adicionarSomToolStripMenuItem";
+            this.adicionarSomToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.adicionarSomToolStripMenuItem.Text = "Adicionar Som";
+            this.adicionarSomToolStripMenuItem.Click += new System.EventHandler(this.adicionarSomToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // FrmPrincipal
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1185, 600);
+            this.Controls.Add(this.LstSons);
+            this.Controls.Add(this.LblSons);
             this.Controls.Add(this.btnMinimizar);
             this.Controls.Add(this.btnFechar);
             this.Controls.Add(this.btnMaximizar);
@@ -335,6 +370,10 @@
         private System.Windows.Forms.PictureBox btnMaximizar;
         private System.Windows.Forms.PictureBox btnFechar;
         private System.Windows.Forms.PictureBox btnMinimizar;
+        private System.Windows.Forms.ToolStripMenuItem adicionarSomToolStripMenuItem;
+        private System.Windows.Forms.Label LblSons;
+        private System.Windows.Forms.ListBox LstSons;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
 
     }
