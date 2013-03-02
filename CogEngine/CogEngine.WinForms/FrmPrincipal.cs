@@ -16,11 +16,19 @@ namespace CogEngine.WinForms
 {
     public partial class FrmPrincipal : Form
     {
+        #region Propriedades
         List<CenaWinForm> _ListaCena;
         CenaWinForm _CenaAtual;
         ToolTip toolMaxRest = new ToolTip();
-        
-        const string VAZIO = "(Vazio)";
+        public bool IsDragging { get; set; }
+        public Control ControleTela { get; set; }
+        public Int64 MouseXInicial { get; set; }
+        public Int64 MouseYInicial { get; set; } 
+        #endregion
+
+        #region Constantes
+        const string VAZIO = "(Vazio)"; 
+        #endregion
 
         #region Variáveis para arredondamento das bordas
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -51,6 +59,35 @@ namespace CogEngine.WinForms
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+        }
+        #endregion
+
+        #region Drag n Drop Controles
+        private void DoDrag(System.Windows.Forms.Control controle)
+        {
+            GetMouseInitialPosition();
+            ControleTela = controle;
+        }
+
+        private void DoDrop(System.Windows.Forms.Control controle)
+        {
+            if (System.Windows.Forms.Cursor.Position.X > MouseXInicial)
+                ControleTela.Left += System.Windows.Forms.Cursor.Position.X - int.Parse(MouseXInicial.ToString());
+            else
+                ControleTela.Left -= int.Parse(MouseXInicial.ToString()) - System.Windows.Forms.Cursor.Position.X;
+
+            if (System.Windows.Forms.Cursor.Position.Y > MouseYInicial)
+                ControleTela.Top += System.Windows.Forms.Cursor.Position.Y - int.Parse(MouseYInicial.ToString());
+            else
+                ControleTela.Top -= int.Parse(MouseYInicial.ToString()) - System.Windows.Forms.Cursor.Position.Y;
+
+            ControleTela = null;
+        }
+
+        private void GetMouseInitialPosition()
+        {
+            MouseXInicial = System.Windows.Forms.Cursor.Position.X;
+            MouseYInicial = System.Windows.Forms.Cursor.Position.Y;
         }
         #endregion
 
@@ -346,6 +383,8 @@ namespace CogEngine.WinForms
                 {
                     Control c = objeto.WinControl.InitWinControl();
                     c.Click += ControClick;
+                    c.MouseDown += new MouseEventHandler(ControMouseDown);
+                    c.MouseUp += new MouseEventHandler(ControMouseUp);
                     _CenaAtual.AdicionarObjeto(objeto);
                     TreeViewObjetos.Nodes[_CenaAtual.ID].Nodes.Add(objeto.Nome);
                 }
@@ -354,6 +393,17 @@ namespace CogEngine.WinForms
                     MessageBox.Show("O componente para renderização não foi inicializado.", "CogEngine - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        public void ControMouseUp(object sender, MouseEventArgs e)
+        {
+            DoDrop(((Control)sender));
+            CarregarDetalhe((Control)sender);
+        }
+
+        public void ControMouseDown(object sender, MouseEventArgs e)
+        {
+            DoDrag(((Control)sender));
         }
 
         #endregion
