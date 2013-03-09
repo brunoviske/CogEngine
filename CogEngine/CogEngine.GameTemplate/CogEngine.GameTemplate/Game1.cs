@@ -24,6 +24,7 @@ namespace CogEngine.GameTemplate
         SpriteBatch spriteBatch;
 
         private List<Cena> _ListaCena;
+        private List<SomXNA> _ListaSom;
         private Cena _CenaAtual;
         private GameProxy _GameProxy;
 
@@ -32,6 +33,7 @@ namespace CogEngine.GameTemplate
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             _ListaCena = new List<Cena>();
+            _ListaSom = new List<SomXNA>();
             _GameProxy = new GameProxy(this);
             IsMouseVisible = true;
         }
@@ -74,54 +76,65 @@ namespace CogEngine.GameTemplate
 
             foreach (XmlNode cenaNode in jogo.ChildNodes)
             {
-                cena = new Cena();
-                cena.Nome = cenaNode.Attributes["Nome"].Value;
-                cena.Cor = System.Drawing.Color.FromArgb(int.Parse(cenaNode.Attributes["Cor"].Value));
-                _ListaCena.Add(cena);
-
-                foreach (XmlNode objetoNode in cenaNode.SelectNodes("Objetos/Objeto"))
+                if (cenaNode.Name == "Cena")
                 {
-                    typeOriginal = Assembly.GetAssembly(type).GetType(objetoNode.Attributes["type"].Value);
-                    o = (ConcentradorObjeto)typeOriginal.GetConstructor(Type.EmptyTypes).Invoke(null);
-                    baseInterface = o.BaseInterface;
-                    foreach (XmlNode nodeProp in objetoNode.ChildNodes[0].ChildNodes)
+                    cena = new Cena();
+                    cena.Nome = cenaNode.Attributes["Nome"].Value;
+                    cena.Cor = System.Drawing.Color.FromArgb(int.Parse(cenaNode.Attributes["Cor"].Value));
+                    _ListaCena.Add(cena);
+
+                    foreach (XmlNode objetoNode in cenaNode.SelectNodes("Objetos/Objeto"))
                     {
-                        attribute = nodeProp.Attributes[0];
-                        p = baseInterface.GetProperty(attribute.Name);
-                        if (p.PropertyType == typeof(int))
+                        typeOriginal = Assembly.GetAssembly(type).GetType(objetoNode.Attributes["type"].Value);
+                        o = (ConcentradorObjeto)typeOriginal.GetConstructor(Type.EmptyTypes).Invoke(null);
+                        baseInterface = o.BaseInterface;
+                        foreach (XmlNode nodeProp in objetoNode.ChildNodes[0].ChildNodes)
                         {
-                            p.SetValue(o.XNAControl, Convert.ToInt32(attribute.Value), null);
+                            attribute = nodeProp.Attributes[0];
+                            p = baseInterface.GetProperty(attribute.Name);
+                            if (p.PropertyType == typeof(int))
+                            {
+                                p.SetValue(o.XNAControl, Convert.ToInt32(attribute.Value), null);
+                            }
+                            else if (p.PropertyType == typeof(float))
+                            {
+                                p.SetValue(o.XNAControl, float.Parse(attribute.Value), null);
+                            }
+                            else if (p.PropertyType == typeof(System.Drawing.Color))
+                            {
+                                System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
+                                p.SetValue(o.XNAControl, c, null);
+                            }
+                            else
+                            {
+                                p.SetValue(o.XNAControl, attribute.Value, null);
+                            }
                         }
-                        else if (p.PropertyType == typeof(float))
+                        if (objetoNode.ChildNodes.Count > 1)
                         {
-                            p.SetValue(o.XNAControl, float.Parse(attribute.Value), null);
-                        }
-                        else if (p.PropertyType == typeof(System.Drawing.Color))
-                        {
-                            System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
-                            p.SetValue(o.XNAControl, c, null);
-                        }
-                        else
-                        {
-                            p.SetValue(o.XNAControl, attribute.Value, null);
-                        }
-                    }
-                    if (objetoNode.ChildNodes.Count > 1)
-                    {
-                        XmlNode nodeScript = objetoNode.ChildNodes[1];
-                        string assemblyFile = nodeScript.Attributes["Assembly"].Value;
-                        Assembly assembly = Assembly.LoadFrom(assemblyFile);
-                        Type userType = assembly.GetTypes()[0];
-                        IObjetoScript script = (IObjetoScript)userType.GetConstructor(new Type[]{
+                            XmlNode nodeScript = objetoNode.ChildNodes[1];
+                            string assemblyFile = nodeScript.Attributes["Assembly"].Value;
+                            Assembly assembly = Assembly.LoadFrom(assemblyFile);
+                            Type userType = assembly.GetTypes()[0];
+                            IObjetoScript script = (IObjetoScript)userType.GetConstructor(new Type[]{
                          typeof(GameProxy), typeof(ICogEngineXNAControl)   
                         }).Invoke(new object[] { _GameProxy, o.XNAControl });
-                        o.Script = script;
+                            o.Script = script;
+                        }
+                        o.XNAControl.LoadContent(Content, graphics.GraphicsDevice);
+                        cena.AdicionarObjeto(o);
                     }
-                    o.XNAControl.LoadContent(Content, graphics.GraphicsDevice);
-                    cena.AdicionarObjeto(o);
                 }
+                CarregarCena("Principal");
             }
-            CarregarCena("Principal");
+
+            Som som;
+            foreach (XmlNode nodeSom in jogo.SelectNodes("Sons/Som"))
+            {
+                attribute = nodeSom.Attributes["CaminhoArquivo"];
+                som = new Som(attribute.Value);
+                _ListaSom.Add(new SomXNA(som));
+            }
         }
 
         /// <summary>
@@ -176,6 +189,15 @@ namespace CogEngine.GameTemplate
         public void CarregarCena(string nomeCena)
         {
             _CenaAtual = _ListaCena.First(c => c.Nome == nomeCena);
+        }
+
+        public void Tocar(string nome)
+        {
+            SomXNA som = _ListaSom.FirstOrDefault(s => s.Nome == nome);
+            if (som != null)
+            {
+                som.Tocar();
+            }
         }
     }
 }

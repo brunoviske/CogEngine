@@ -62,6 +62,7 @@
     <Compile Include="ObjetoAttribute.cs" />
     <Compile Include="ConcentradorTexto.cs" />
     <Compile Include="Plataforma.cs" />
+    <Compile Include="Som.cs" />
     <Compile Include="WinForms\AbstractImageControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -82,6 +83,7 @@
     <Compile Include="XNA\CustomImageXNAControl.cs" />
     <Compile Include="XNA\ICogEngineXNAControl.cs" />
     <Compile Include="XNA\FiguraXNAControl.cs" />
+    <Compile Include="XNA\SomXNA.cs" />
     <Compile Include="XNA\TextoXNAControl.cs" />
   </ItemGroup>
   <ItemGroup>

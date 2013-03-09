@@ -1,19 +1,17 @@
 <?xml version="1.0"?>
-<Projeto>
-  <Jogo>
-    <Cena Nome="Principal" Cor="-10185235">
-      <Objetos>
-        <Objeto type="CogEngine.Objects.Triangulo">
-          <Propriedades>
-            <Propriedade Altura="50" />
-            <Propriedade Largura="100" />
-            <Propriedade PosicaoX="0" />
-            <Propriedade PosicaoY="0" />
-            <Propriedade ZIndex="0" />
-          </Propriedades>
-        </Objeto>
-      </Objetos>
-    </Cena>
-  </Jogo>
-  <Scripts />
-</Projeto>
+<Jogo>
+  <Cena Nome="Principal" Cor="-10185235">
+    <Objetos>
+      <Objeto type="CogEngine.Objects.Triangulo">
+        <Propriedades>
+          <Propriedade Altura="400" />
+          <Propriedade Largura="400" />
+          <Propriedade PosicaoX="0" />
+          <Propriedade PosicaoY="0" />
+          <Propriedade ZIndex="0" />
+        </Propriedades>
+      </Objeto>
+    </Objetos>
+  </Cena>
+  <Sons />
+</Jogo>

@@ -18,5 +18,10 @@ namespace CogEngine.Objects
         {
             _Game.CarregarCena(nomeCena);
         }
+
+        public void Tocar(string nome)
+        {
+            _Game.Tocar(nome);
+        }
     }
 }

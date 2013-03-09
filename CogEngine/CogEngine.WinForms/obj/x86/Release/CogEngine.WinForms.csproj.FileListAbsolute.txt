@@ -1,0 +1,1 @@
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.WinForms\bin\Release\CogEngine.WinForms.exe.config

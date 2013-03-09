@@ -1,0 +1,12 @@
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\FontePadrao.xnb
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.GameTemplate.exe.config
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.GameTemplate.exe
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.GameTemplate.pdb
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.Objects.dll
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\CogEngine.Objects.pdb
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\CogEngine.GameTemplate.exe
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\obj\x86\Debug\CogEngine.GameTemplate.pdb
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\Kalimba.xnb
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\Kalimba.wma

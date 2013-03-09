@@ -1,0 +1,5 @@
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.Objects\bin\Debug\CogEngine.Objects.dll
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.Objects\bin\Debug\CogEngine.Objects.pdb
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.Objects\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.Objects\obj\Debug\CogEngine.Objects.dll
+C:\Users\Emerson\Desktop\CogEngine\CogEngine.Objects\obj\Debug\CogEngine.Objects.pdb

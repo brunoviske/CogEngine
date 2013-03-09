@@ -23,11 +23,11 @@ namespace CogEngine.WinForms
         public bool IsDragging { get; set; }
         public Control ControleTela { get; set; }
         public Int64 MouseXInicial { get; set; }
-        public Int64 MouseYInicial { get; set; } 
+        public Int64 MouseYInicial { get; set; }
         #endregion
 
         #region Constantes
-        const string VAZIO = "(Vazio)"; 
+        const string VAZIO = "(Vazio)";
         #endregion
 
         #region Variáveis para arredondamento das bordas
@@ -237,6 +237,21 @@ namespace CogEngine.WinForms
                         }
                     }
                 }
+
+                XmlNode sons = jogo.AppendChild(xml.CreateNode(XmlNodeType.Element, "Sons", null));
+
+                Som som;
+                XmlNode nodeSom;
+                foreach (object o in LstSons.Items)
+                {
+                    som = (Som)o;
+                    nodeSom = xml.CreateNode(XmlNodeType.Element, "Som", null);
+                    attribute = xml.CreateAttribute("CaminhoArquivo");
+                    attribute.Value = som.CaminhoCompleto;
+                    nodeSom.Attributes.Append(attribute);
+                    sons.AppendChild(nodeSom);
+                }
+
                 xml.Save(arquivo);
                 MessageBox.Show("Seu projeto foi compilado com sucesso!", "CogEngine - compilação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -490,7 +505,7 @@ namespace CogEngine.WinForms
             OpenFileDialog op = null;
             XmlDocument document = null;
 
-            
+
             PropertyInfo p;
             Type type = typeof(ConcentradorObjeto);
             ConcentradorObjeto o;
@@ -542,10 +557,10 @@ namespace CogEngine.WinForms
                     cena = new CenaWinForm();
                     cena.Nome = cenaNode.Attributes["Nome"].Value;
                     cena.Cor = System.Drawing.Color.FromArgb(int.Parse(cenaNode.Attributes["Cor"].Value));
-                    
+
                     cena.Painel.Size = GrpGameView.Size;
                     cena.OnNomeChanged += OnNomeChanged;
-                    
+
                     //Adiciono o objeto o tree view
                     TreeViewObjetos.Nodes.Add(cena.ID, cena.Nome);
 
@@ -582,14 +597,14 @@ namespace CogEngine.WinForms
                         }
 
                         //Atribuo o script caso exista
-                        if (objetoNode.ChildNodes.Count > 1) 
+                        if (objetoNode.ChildNodes.Count > 1)
                             o.WinControl.IDScript = objetoNode.ChildNodes[1].Attributes[1].Value;
 
                         //Crio o controle, adiciono seu evento para exibição dos detalhes e os adiciono na cena                       
                         Control ctr = o.WinControl.InitWinControl();
                         ctr.Click += ControClick;
                         cena.AdicionarObjeto(o);
-                        TreeViewObjetos.Nodes[cena.ID].Nodes.Add(o.Nome);                     
+                        TreeViewObjetos.Nodes[cena.ID].Nodes.Add(o.Nome);
                     }
                 }
             }
@@ -618,7 +633,7 @@ namespace CogEngine.WinForms
                     arquivo = sf.FileName;
                 else
                     return;
-                
+
                 XmlDocument xml = new XmlDocument();
                 XmlNode node = xml.CreateNode(XmlNodeType.XmlDeclaration, "xml", null);
                 xml.AppendChild(node);
@@ -628,7 +643,7 @@ namespace CogEngine.WinForms
 
                 XmlElement jogo = xml.CreateElement("Jogo");
                 pjt.AppendChild(jogo);
-                
+
                 XmlElement controles;
                 XmlAttribute attribute;
                 XmlNode nodeCena;
@@ -683,7 +698,7 @@ namespace CogEngine.WinForms
                                     node.AppendChild(nodeScript);
                                 }
                             }
-                            
+
                             controles.AppendChild(node);
 
                             foreach (PropertyInfo p in type.GetProperties())
@@ -703,7 +718,7 @@ namespace CogEngine.WinForms
                                     nodeProp.Attributes.Append(attribute);
                                     nodePropriedades.AppendChild(nodeProp);
                                 }
-                            }                            
+                            }
                         }
                     }
                 }
@@ -735,9 +750,9 @@ namespace CogEngine.WinForms
                 //Se o arquivo já existir sobreescrevo
                 if (File.Exists(arquivo))
                     File.Delete(arquivo);
-                
+
                 xml.Save(arquivo);
-                
+
                 MessageBox.Show("Seu projeto foi salvo com sucesso!", "CogEngine", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception)
@@ -754,7 +769,7 @@ namespace CogEngine.WinForms
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FecharEngine();            
+            FecharEngine();
         }
 
         private void FecharEngine()
@@ -815,7 +830,7 @@ namespace CogEngine.WinForms
             {
                 this.WindowState = FormWindowState.Maximized;
                 toolMaxRest.SetToolTip(btnMaximizar, "Restaurar");
-                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width - 0, Height - 0, 0, 0));                
+                Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width - 0, Height - 0, 0, 0));
                 btnMaximizar.Image = Image.FromFile(@"Resources\Restaurar.png");
             }
             else
@@ -852,19 +867,21 @@ namespace CogEngine.WinForms
 
         private void adicionarSomToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.Title = "Procurar som";
-            this.openFileDialog1.Filter = "Images (*.WAV;*.MP3;)|*.WAV;*.MP3|" + "All files (*.*)|*.*";
-            this.openFileDialog1.InitialDirectory = @"C:\";
-            DialogResult result = openFileDialog1.ShowDialog();
+            openFileDialog1.Title = "Procurar som";
+            openFileDialog1.Filter = "Sons (*.WAV)|*.WAV|" + "All files (*.*)|*.*";
+            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+            openFileDialog1.FileName = null;
+            openFileDialog1.ShowDialog();
 
             if (!LstSons.Items.Contains(openFileDialog1.SafeFileName))
             {
-                LstSons.Items.Add(openFileDialog1.SafeFileName);
+                Som som = new Som(openFileDialog1.FileName);
+                LstSons.Items.Add(som);
             }
-            else {
+            else
+            {
                 MessageBox.Show("Esse arquivo já está incluso na lista de sons!");
             }
-
         }
     }
 }
