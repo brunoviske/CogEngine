@@ -7,18 +7,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\FontePadrao.xnb</Output>
-      <Time>2013-01-13T22:32:50.9490164-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Kalimba.mp3</Source>
-      <Name>Kalimba</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\Kalimba.xnb</Output>
-      <Extra>C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\Kalimba.wma</Extra>
-      <Time>2013-03-08T20:56:29.9293567-03:00</Time>
+      <Output>C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\FontePadrao.xnb</Output>
+      <Time>2013-03-09T22:40:44.1379284-03:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -26,10 +16,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplateContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplateContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Emerson\Desktop\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplateContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplateContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\CogEngine.GameTemplate\CogEngine.GameTemplate\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

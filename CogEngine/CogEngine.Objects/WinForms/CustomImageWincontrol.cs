@@ -15,7 +15,7 @@ namespace CogEngine.Objects.WinForms
         internal CustomImageWincontrol(ConcentradorObjeto objeto)
         {
             _Objeto = objeto;
-            CaminhoImagem = Configuracao.RetornarPastaImagens() + "\\video-game-controller.jpg";
+            CaminhoImagem = Configuracao.RetornarPastaArquivos() + "\\video-game-controller.jpg";
             Imagem = new System.Drawing.Bitmap(CaminhoImagem);
             Altura = 80;
         }
@@ -35,12 +35,7 @@ namespace CogEngine.Objects.WinForms
             set
             {
                 Image = value;
-                int i = 1;
-                string prefixo = Configuracao.RetornarPastaImagens() + "\\Imagem";
-                string caminhoImagem;
-                while (File.Exists((caminhoImagem = prefixo + i++))) ;
-                Image.Save(caminhoImagem);
-                CaminhoImagem = caminhoImagem;
+                CaminhoImagem = new ManipuladorArquivo().SalvarImagem(value);
             }
         }
 

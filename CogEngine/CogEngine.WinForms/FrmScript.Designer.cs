@@ -28,26 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.RTxtCodigoScript = new System.Windows.Forms.RichTextBox();
             this.TxtNomeScript = new System.Windows.Forms.TextBox();
             this.LblScript = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
+            this.panelScript = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // RTxtCodigoScript
-            // 
-            this.RTxtCodigoScript.Location = new System.Drawing.Point(12, 60);
-            this.RTxtCodigoScript.Name = "RTxtCodigoScript";
-            this.RTxtCodigoScript.Size = new System.Drawing.Size(268, 205);
-            this.RTxtCodigoScript.TabIndex = 0;
-            this.RTxtCodigoScript.Text = "";
             // 
             // TxtNomeScript
             // 
             this.TxtNomeScript.Location = new System.Drawing.Point(98, 16);
             this.TxtNomeScript.Name = "TxtNomeScript";
-            this.TxtNomeScript.Size = new System.Drawing.Size(182, 20);
+            this.TxtNomeScript.Size = new System.Drawing.Size(365, 20);
             this.TxtNomeScript.TabIndex = 1;
             // 
             // LblScript
@@ -78,21 +70,29 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.button1_Click);
             // 
+            // panelScript
+            // 
+            this.panelScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelScript.Location = new System.Drawing.Point(12, 61);
+            this.panelScript.Name = "panelScript";
+            this.panelScript.Size = new System.Drawing.Size(451, 205);
+            this.panelScript.TabIndex = 5;
+            // 
             // FrmScript
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 302);
+            this.ClientSize = new System.Drawing.Size(475, 302);
+            this.Controls.Add(this.panelScript);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.LblScript);
             this.Controls.Add(this.TxtNomeScript);
-            this.Controls.Add(this.RTxtCodigoScript);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmScript";
-            this.Text = "Novo Script";
+            this.Text = "Editar Script";
             this.Load += new System.EventHandler(this.FrmScript_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -101,10 +101,10 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox RTxtCodigoScript;
         private System.Windows.Forms.TextBox TxtNomeScript;
         private System.Windows.Forms.Label LblScript;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Panel panelScript;
     }
 }

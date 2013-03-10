@@ -10,9 +10,9 @@ namespace CogEngine.Objects
     {
         private static string Prefixo;
 
-        public static string RetornarPastaImagens()
+        public static string RetornarPastaArquivos()
         {
-            return RetornarCaminhoAbsoluto(Prefixo + "Imagens");
+            return RetornarCaminhoAbsoluto(Prefixo + "Arquivos");
         }
 
         public static string RetornarArquivoJogo()

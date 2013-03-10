@@ -94,6 +94,10 @@
       <Project>{91DE0863-A491-4D73-B8AF-CA481F2F0756}</Project>
       <Name>CogEngine.Objects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CogEngine.ScriptEditor\CogEngine.ScriptEditor.csproj">
+      <Project>{EB147E6B-E794-49FF-855C-1B06275C03FB}</Project>
+      <Name>CogEngine.ScriptEditor</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Minimizar.png">

@@ -5,33 +5,13 @@ using System.Text;
 
 namespace CogEngine.Objects
 {
-    public class Som
+    public abstract class Som
     {
-        public string CaminhoCompleto { get; private set; }
-        public string NomeArquivo
-        {
-            get
-            {
-                int i = CaminhoCompleto.LastIndexOf('\\');
-                if (i >= 0)
-                {
-                    return CaminhoCompleto.Substring(i + 1);
-                }
-                else
-                {
-                    return "";
-                }
-            }
-        }
-
-        public Som(string caminhoCompleto)
-        {
-            CaminhoCompleto = caminhoCompleto;
-        }
-
+        public virtual string CaminhoCompleto { get; set; }
+        public string Nome { get; set; }
         public override string ToString()
         {
-            return NomeArquivo;
+            return Nome;
         }
     }
 }

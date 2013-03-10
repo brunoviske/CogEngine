@@ -37,7 +37,7 @@ namespace CogEngine.Objects
 
         internal override string CaminhoArquivo
         {
-            get { return Configuracao.RetornarPastaImagens() + "\\triangulo.JPG"; }
+            get { return Configuracao.RetornarPastaArquivos() + "\\triangulo.JPG"; }
         }
 
         public override string Nome

@@ -249,6 +249,11 @@ namespace CogEngine.WinForms
                     attribute = xml.CreateAttribute("CaminhoArquivo");
                     attribute.Value = som.CaminhoCompleto;
                     nodeSom.Attributes.Append(attribute);
+
+                    attribute = xml.CreateAttribute("Nome");
+                    attribute.Value = som.Nome;
+                    nodeSom.Attributes.Append(attribute);
+
                     sons.AppendChild(nodeSom);
                 }
 
@@ -871,16 +876,28 @@ namespace CogEngine.WinForms
             openFileDialog1.Filter = "Sons (*.WAV)|*.WAV|" + "All files (*.*)|*.*";
             openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
             openFileDialog1.FileName = null;
-            openFileDialog1.ShowDialog();
+            DialogResult resultado = openFileDialog1.ShowDialog();
 
-            if (!LstSons.Items.Contains(openFileDialog1.SafeFileName))
+            if (resultado == System.Windows.Forms.DialogResult.OK)
             {
-                Som som = new Som(openFileDialog1.FileName);
-                LstSons.Items.Add(som);
-            }
-            else
-            {
-                MessageBox.Show("Esse arquivo já está incluso na lista de sons!");
+                if (openFileDialog1.FileName.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!LstSons.Items.Contains(openFileDialog1.SafeFileName))
+                    {
+                        SomWinForm som = new SomWinForm(openFileDialog1.FileName);
+                        int i = openFileDialog1.FileName.LastIndexOf('\\');
+                        som.Nome = openFileDialog1.FileName.Substring(i + 1);
+                        LstSons.Items.Add(som);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esse arquivo já está incluso na lista de sons!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("É permitido apenas arquivo do tipo .wav");
+                }
             }
         }
     }

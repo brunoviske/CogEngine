@@ -7,25 +7,15 @@ using System.IO;
 
 namespace CogEngine.Objects.XNA
 {
-    public class SomXNA
+    public class SomXNA : Som
     {
-        private Som _Som;
         private SoundEffect _Sound;
 
-        public SomXNA(Som som)
+        public void Iniciar()
         {
-            _Som = som;
-            using (FileStream f = File.Open(_Som.CaminhoCompleto, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream f = File.Open(CaminhoCompleto, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 _Sound = SoundEffect.FromStream(f);
-            }
-        }
-
-        public string Nome
-        {
-            get
-            {
-                return _Som.NomeArquivo;
             }
         }
 

@@ -57,6 +57,7 @@
     <Compile Include="ImagemObjeto.cs" />
     <Compile Include="IObjetoScript.cs" />
     <Compile Include="ITexto.cs" />
+    <Compile Include="ManipuladorArquivo.cs" />
     <Compile Include="NomeChangedEvent.cs" />
     <Compile Include="NomeChangedEventHandler.cs" />
     <Compile Include="ObjetoAttribute.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="WinForms\FiguraWinControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WinForms\SomWinForm.cs" />
     <Compile Include="WinForms\TextoWinControl.cs">
       <SubType>Component</SubType>
     </Compile>

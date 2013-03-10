@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using CogEngine.ScriptEditor;
 
 namespace CogEngine.WinForms
 {
     public partial class FrmScript : Form
     {
+        FastColoredTextBox TxtCodigoScript = new FastColoredTextBox();
+
         public FrmScript()
         {
             OK = false;
@@ -24,17 +27,7 @@ namespace CogEngine.WinForms
             }
         }
 
-        public string CodigoScript
-        {
-            get
-            {
-                return RTxtCodigoScript.Text;
-            }
-            set
-            {
-                RTxtCodigoScript.Text = value;
-            }
-        }
+        public string CodigoScript { get; set; }
 
         public bool OK { get; set; }
 
@@ -45,11 +38,15 @@ namespace CogEngine.WinForms
                 MessageBox.Show("Por favor, informe um nome para seu script.", "CogEngine", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (RTxtCodigoScript.Text.Trim() == "")
+            if (TxtCodigoScript.Text.Trim() == "")
             {
                 MessageBox.Show("Por favor, escreva o código do seu script.", "CogEngine", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
+
+            NomeScript = TxtNomeScript.Text;
+            CodigoScript = TxtCodigoScript.Text;
+
             OK = true;
             Close();
         }
@@ -57,16 +54,36 @@ namespace CogEngine.WinForms
         private void FrmScript_Load(object sender, EventArgs e)
         {
             SetTextFormat();
-            TxtNomeScript.Text = Script.GetNome();
+            LoadContent();
         }
 
         private void SetTextFormat()
         {
-            RTxtCodigoScript.Multiline = true;
-            RTxtCodigoScript.AcceptsTab = true;
-            RTxtCodigoScript.ScrollBars = RichTextBoxScrollBars.ForcedBoth;
-            RTxtCodigoScript.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
-            RTxtCodigoScript.SelectionColor = Color.Black;
+            TxtCodigoScript.Font = new Font("Consolas", 9.75f);
+            TxtCodigoScript.Dock = DockStyle.Fill;
+            TxtCodigoScript.BorderStyle = BorderStyle.Fixed3D;
+            TxtCodigoScript.VirtualSpace = true;
+            TxtCodigoScript.LeftPadding = 17;
+            TxtCodigoScript.Language = Language.CSharp;
+            TxtCodigoScript.AddStyle(new MarkerStyle(new SolidBrush(Color.FromArgb(50, Color.Gray))));//same words style
+            TxtCodigoScript.IsChanged = false;
+            TxtCodigoScript.HighlightingRangeType = HighlightingRangeType.VisibleRange;
+            panelScript.Controls.Add(TxtCodigoScript);
+        }
+
+        private void LoadContent()
+        {
+            if (string.IsNullOrEmpty(NomeScript) || string.IsNullOrWhiteSpace(NomeScript))
+                TxtNomeScript.Text = Script.GetNome();
+            else
+                TxtNomeScript.Text = NomeScript;
+
+            if (string.IsNullOrEmpty(CodigoScript) || string.IsNullOrWhiteSpace(CodigoScript))
+                TxtCodigoScript.Text = string.Empty;
+            else
+                TxtCodigoScript.Text = CodigoScript;
+
+            TxtCodigoScript.Focus();
         }
     }
 }

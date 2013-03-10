@@ -128,12 +128,16 @@ namespace CogEngine.GameTemplate
                 CarregarCena("Principal");
             }
 
-            Som som;
+            SomXNA som;
             foreach (XmlNode nodeSom in jogo.SelectNodes("Sons/Som"))
             {
+                som = new SomXNA();
                 attribute = nodeSom.Attributes["CaminhoArquivo"];
-                som = new Som(attribute.Value);
-                _ListaSom.Add(new SomXNA(som));
+                som.CaminhoCompleto = attribute.Value;
+                attribute = nodeSom.Attributes["Nome"];
+                som.Nome = attribute.Value;
+                som.Iniciar();
+                _ListaSom.Add(som);
             }
         }
 

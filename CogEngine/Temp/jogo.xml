@@ -2,16 +2,20 @@
 <Jogo>
   <Cena Nome="Principal" Cor="-10185235">
     <Objetos>
-      <Objeto type="CogEngine.Objects.Triangulo">
+      <Objeto type="CogEngine.Objects.ImagemObjeto">
         <Propriedades>
-          <Propriedade Altura="400" />
-          <Propriedade Largura="400" />
-          <Propriedade PosicaoX="0" />
-          <Propriedade PosicaoY="0" />
+          <Propriedade Altura="80" />
+          <Propriedade Largura="100" />
+          <Propriedade PosicaoX="219" />
+          <Propriedade PosicaoY="87" />
           <Propriedade ZIndex="0" />
+          <Propriedade CaminhoImagem="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Arquivos\Imagem8" />
         </Propriedades>
+        <Script Assembly="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Temp\Script_2.dll" Namespace="" />
       </Objeto>
     </Objetos>
   </Cena>
-  <Sons />
+  <Sons>
+    <Som CaminhoArquivo="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Arquivos\Som_1" Nome="hit.wav" />
+  </Sons>
 </Jogo>
