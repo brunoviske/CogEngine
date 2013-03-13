@@ -24,6 +24,15 @@ namespace CogEngine.WinForms
         public Control ControleTela { get; set; }
         public Int64 MouseXInicial { get; set; }
         public Int64 MouseYInicial { get; set; }
+
+        #region Propriedades do Drag n Drop dos itens
+            Control controleTela = null;
+            bool redimensionandoControle = false;
+            int resizingMargin = 5;
+            private Point pontoInicialDrag;
+            private Size tamanhoInicial;
+            Rectangle novoRetangulo = Rectangle.Empty;
+        #endregion
         #endregion
 
         #region Constantes
@@ -405,6 +414,7 @@ namespace CogEngine.WinForms
                     c.Click += ControClick;
                     c.MouseDown += new MouseEventHandler(ControMouseDown);
                     c.MouseUp += new MouseEventHandler(ControMouseUp);
+                    c.MouseMove += new MouseEventHandler(ControMouseMove);
                     _CenaAtual.AdicionarObjeto(objeto);
                     TreeViewObjetos.Nodes[_CenaAtual.ID].Nodes.Add(objeto.Nome);
                 }
@@ -415,15 +425,99 @@ namespace CogEngine.WinForms
             }
         }
 
+        public void ControMouseMove(object sender, MouseEventArgs e)
+        {
+            if (controleTela != null)
+            {
+                if (redimensionandoControle)
+                {
+                    // erase rect
+                    if (novoRetangulo.Width > 0 && novoRetangulo.Height > 0)
+                        ControlPaint.DrawReversibleFrame(novoRetangulo, this.ForeColor, FrameStyle.Dashed);
+                    // calculate rect new size
+                    novoRetangulo.Width = e.X - this.pontoInicialDrag.X + this.tamanhoInicial.Width;
+                    novoRetangulo.Height = e.Y - this.pontoInicialDrag.Y + this.tamanhoInicial.Height;
+                    // draw rect
+                    if (novoRetangulo.Width > 0 && novoRetangulo.Height > 0)
+                        ControlPaint.DrawReversibleFrame(novoRetangulo, this.ForeColor, FrameStyle.Dashed);
+                }
+                else
+                {
+                    Point pt;
+                    if (controleTela == sender)
+                        pt = new Point(e.X, e.Y);
+                    else
+                        pt = controleTela.PointToClient((sender as Control).PointToScreen(new Point(e.X, e.Y)));
+
+                    controleTela.Left += pt.X - this.pontoInicialDrag.X;
+                    controleTela.Top += pt.Y - this.pontoInicialDrag.Y;
+                }
+            }
+        }
+
         public void ControMouseUp(object sender, MouseEventArgs e)
         {
-            DoDrop(((Control)sender));
+            if (redimensionandoControle)
+            {
+                if (novoRetangulo.Width > 0 && novoRetangulo.Height > 0)
+                {
+                    // apago o retangulo
+                    ControlPaint.DrawReversibleFrame(novoRetangulo, this.ForeColor, FrameStyle.Dashed);
+                }
+                // compara a largura minima e o tamanho
+                if (novoRetangulo.Width > 10 && novoRetangulo.Height > 10)
+                {
+                    // set size 
+                    this.controleTela.Size = novoRetangulo.Size;
+                }
+                else
+                {
+                    // you might want to set some minimal size here
+                    this.controleTela.Size = new Size((int)Math.Max(10, novoRetangulo.Width), Math.Max(10, novoRetangulo.Height));
+                }
+            }
+
+            this.controleTela = null;
+            this.pontoInicialDrag = Point.Empty;
+            this.Cursor = Cursors.Default;
+
             CarregarDetalhe((Control)sender);
         }
 
         public void ControMouseDown(object sender, MouseEventArgs e)
         {
-            DoDrag(((Control)sender));
+            controleTela = sender as Control;
+
+            if ((e.X <= resizingMargin) || (e.X >= controleTela.Width - resizingMargin) ||
+                (e.Y <= resizingMargin) || (e.Y >= controleTela.Height - resizingMargin))
+            {
+                redimensionandoControle = true;
+
+                // indicate resizing
+                this.Cursor = Cursors.SizeNWSE;
+
+                // tamanho inicial
+                this.tamanhoInicial = new Size(e.X, e.Y);
+
+                //Ajuste do ponto
+                Point p = new Point(controleTela.Location.X + GrpGameView.Location.X, controleTela.Location.Y + GrpGameView.Location.Y);
+
+                // Obtenho a localização do picture box
+                Point pt = this.PointToScreen(p);
+                novoRetangulo = new Rectangle(pt, tamanhoInicial);
+                
+                // desenho o retangulo
+                ControlPaint.DrawReversibleFrame(novoRetangulo, this.ForeColor, FrameStyle.Dashed);
+            }
+            else
+            {
+                redimensionandoControle = false;
+                // indicate moving
+                this.Cursor = Cursors.SizeAll;
+            }
+
+            // start point location
+            this.pontoInicialDrag = e.Location;
         }
 
         #endregion
