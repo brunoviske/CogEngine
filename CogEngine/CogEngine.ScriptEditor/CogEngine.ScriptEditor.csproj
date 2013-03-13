@@ -48,7 +48,6 @@
     <Compile Include="AutocompleteMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Bookmarks.cs" />
     <Compile Include="Char.cs" />
     <Compile Include="CommandManager.cs" />
     <Compile Include="Commands.cs" />
