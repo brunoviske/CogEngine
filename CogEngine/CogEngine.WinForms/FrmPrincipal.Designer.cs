@@ -175,7 +175,6 @@
             this.colisorToolStripMenuItem.Name = "colisorToolStripMenuItem";
             this.colisorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.colisorToolStripMenuItem.Text = "Colisor";
-            this.colisorToolStripMenuItem.Click += new System.EventHandler(this.colisorToolStripMenuItem_Click);
             // 
             // GrpGameView
             // 
