@@ -22,6 +22,7 @@ namespace CogEngine.GameTemplate
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
 
         private List<Cena> _ListaCena;
         private List<SomXNA> _ListaSom;
@@ -59,7 +60,7 @@ namespace CogEngine.GameTemplate
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             Configuracao.Iniciar(Plataforma.XNA);
 
             string arquivo = Configuracao.RetornarArquivoJogo();
@@ -157,6 +158,7 @@ namespace CogEngine.GameTemplate
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -180,6 +182,8 @@ namespace CogEngine.GameTemplate
         {
             GraphicsDevice.Clear(new Color(_CenaAtual.Cor.R, _CenaAtual.Cor.G, _CenaAtual.Cor.B));
             spriteBatch.Begin();
+
+            
 
             foreach (ConcentradorObjeto item in _CenaAtual.ListarObjetos())
             {

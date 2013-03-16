@@ -38,7 +38,10 @@
             this.projetoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adicionarCenaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adicionarScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adicionarSomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compilarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.físicaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colisorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GrpGameView = new System.Windows.Forms.GroupBox();
             this.LstControles = new System.Windows.Forms.ListBox();
             this.PropertyControl = new System.Windows.Forms.PropertyGrid();
@@ -53,7 +56,6 @@
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.LblSons = new System.Windows.Forms.Label();
             this.LstSons = new System.Windows.Forms.ListBox();
-            this.adicionarSomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStripEngine.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
@@ -66,10 +68,11 @@
             this.menuStripEngine.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStripEngine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.arquivoToolStripMenuItem,
-            this.projetoToolStripMenuItem});
+            this.projetoToolStripMenuItem,
+            this.físicaToolStripMenuItem});
             this.menuStripEngine.Location = new System.Drawing.Point(12, 26);
             this.menuStripEngine.Name = "menuStripEngine";
-            this.menuStripEngine.Size = new System.Drawing.Size(126, 24);
+            this.menuStripEngine.Size = new System.Drawing.Size(266, 24);
             this.menuStripEngine.TabIndex = 0;
             this.menuStripEngine.Text = "menuStripEngine";
             // 
@@ -145,12 +148,34 @@
             this.adicionarScriptToolStripMenuItem.Text = "Adicionar Script";
             this.adicionarScriptToolStripMenuItem.Click += new System.EventHandler(this.adicionarScriptToolStripMenuItem_Click);
             // 
+            // adicionarSomToolStripMenuItem
+            // 
+            this.adicionarSomToolStripMenuItem.Name = "adicionarSomToolStripMenuItem";
+            this.adicionarSomToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.adicionarSomToolStripMenuItem.Text = "Adicionar Som";
+            this.adicionarSomToolStripMenuItem.Click += new System.EventHandler(this.adicionarSomToolStripMenuItem_Click);
+            // 
             // compilarToolStripMenuItem
             // 
             this.compilarToolStripMenuItem.Name = "compilarToolStripMenuItem";
             this.compilarToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.compilarToolStripMenuItem.Text = "Compilar";
             this.compilarToolStripMenuItem.Click += new System.EventHandler(this.compilarToolStripMenuItem_Click);
+            // 
+            // físicaToolStripMenuItem
+            // 
+            this.físicaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.colisorToolStripMenuItem});
+            this.físicaToolStripMenuItem.Name = "físicaToolStripMenuItem";
+            this.físicaToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.físicaToolStripMenuItem.Text = "Física";
+            // 
+            // colisorToolStripMenuItem
+            // 
+            this.colisorToolStripMenuItem.Name = "colisorToolStripMenuItem";
+            this.colisorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.colisorToolStripMenuItem.Text = "Colisor";
+            this.colisorToolStripMenuItem.Click += new System.EventHandler(this.colisorToolStripMenuItem_Click);
             // 
             // GrpGameView
             // 
@@ -164,8 +189,8 @@
             // 
             // LstControles
             // 
-            this.LstControles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LstControles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.LstControles.FormattingEnabled = true;
             this.LstControles.Location = new System.Drawing.Point(12, 85);
             this.LstControles.Name = "LstControles";
@@ -192,8 +217,8 @@
             // 
             // LstScript
             // 
-            this.LstScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LstScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.LstScript.FormattingEnabled = true;
             this.LstScript.Location = new System.Drawing.Point(12, 336);
             this.LstScript.Name = "LstScript";
@@ -296,13 +321,6 @@
             this.LstSons.Size = new System.Drawing.Size(138, 95);
             this.LstSons.TabIndex = 14;
             // 
-            // adicionarSomToolStripMenuItem
-            // 
-            this.adicionarSomToolStripMenuItem.Name = "adicionarSomToolStripMenuItem";
-            this.adicionarSomToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.adicionarSomToolStripMenuItem.Text = "Adicionar Som";
-            this.adicionarSomToolStripMenuItem.Click += new System.EventHandler(this.adicionarSomToolStripMenuItem_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -374,6 +392,8 @@
         private System.Windows.Forms.Label LblSons;
         private System.Windows.Forms.ListBox LstSons;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem físicaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem colisorToolStripMenuItem;
 
 
     }
