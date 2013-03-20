@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace CogEngine.Objects
 {
@@ -22,6 +23,12 @@ namespace CogEngine.Objects
         public void Tocar(string nome)
         {
             _Game.Tocar(nome);
+        }
+
+
+        public object Objeto(string nome)
+        {
+            return _Game.Objeto(nome);
         }
     }
 }

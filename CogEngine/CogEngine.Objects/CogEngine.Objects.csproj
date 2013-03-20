@@ -64,6 +64,7 @@
     <Compile Include="ObjetoAttribute.cs" />
     <Compile Include="ConcentradorTexto.cs" />
     <Compile Include="Plataforma.cs" />
+    <Compile Include="Quadrado.cs" />
     <Compile Include="Som.cs" />
     <Compile Include="WinForms\AbstractImageControl.cs">
       <SubType>Component</SubType>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace CogEngine.Objects.XNA
 {
@@ -62,11 +63,15 @@ namespace CogEngine.Objects.XNA
         {
             _Font = contentManager.Load<SpriteFont>("FontePadrao");
         }
-
-
+        
         public void Update(GameTime gameTime)
         {
             throw new System.NotImplementedException();
+        }
+
+        public new Type GetType()
+        {
+            return typeof(TextoXNAControl);
         }
     }
 }

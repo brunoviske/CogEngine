@@ -6,16 +6,14 @@
         <Propriedades>
           <Propriedade Altura="80" />
           <Propriedade Largura="100" />
-          <Propriedade PosicaoX="219" />
-          <Propriedade PosicaoY="87" />
+          <Propriedade PosicaoX="0" />
+          <Propriedade PosicaoY="0" />
           <Propriedade ZIndex="0" />
-          <Propriedade CaminhoImagem="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Arquivos\Imagem8" />
+          <Propriedade CaminhoImagem="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Arquivos\Imagem23" />
         </Propriedades>
         <Script Assembly="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Temp\Script_2.dll" Namespace="" />
       </Objeto>
     </Objetos>
   </Cena>
-  <Sons>
-    <Som CaminhoArquivo="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Arquivos\Som_1" Nome="hit.wav" />
-  </Sons>
+  <Sons />
 </Jogo>

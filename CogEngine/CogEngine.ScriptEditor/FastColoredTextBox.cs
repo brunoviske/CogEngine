@@ -57,7 +57,6 @@ namespace CogEngine.ScriptEditor
         public int TextHeight;
         internal bool allowInsertRemoveLines = true;
         private Brush backBrush;
-        private Bookmarks bookmarks;
         private bool caretVisible;
         private Color changedLineColor;
         private int charHeight;
@@ -163,7 +162,7 @@ namespace CogEngine.ScriptEditor
             LeftBracket2 = '\x0';
             RightBracket2 = '\x0';
             SyntaxHighlighter = new SyntaxHighlighter();
-            language = Language.Custom;
+            language = Language.CSharp;
             PreferredLineWidth = 0;
             needRecalc = true;
             lastNavigatedDateTime = DateTime.Now;
@@ -184,7 +183,6 @@ namespace CogEngine.ScriptEditor
             AllowDrop = true;
             FindEndOfFoldingBlockStrategy = FindEndOfFoldingBlockStrategy.Strategy1;
             VirtualSpace = false;
-            bookmarks = new Bookmarks(this);
             BookmarkColor = Color.PowderBlue;
             ToolTip = new ToolTip();
             timer3.Interval = 500;
@@ -260,18 +258,7 @@ namespace CogEngine.ScriptEditor
         [DefaultValue(typeof(Color), "PowderBlue")]
         [Description("Color of bookmarks.")]
         public Color BookmarkColor { get; set; }
-
-        /// <summary>
-        /// Bookmarks
-        /// </summary>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
-         EditorBrowsable(EditorBrowsableState.Never)]
-        public Bookmarks Bookmarks
-        {
-            get { return bookmarks; }
-            set { bookmarks = value; }
-        }
-
+        
         /// <summary>
         /// Enables virtual spaces
         /// </summary>
@@ -3225,23 +3212,7 @@ namespace CogEngine.ScriptEditor
 
                 case FCTBAction.NavigateForward:
                     NavigateForward();
-                    break;
-
-                case FCTBAction.UnbookmarkLine:
-                    UnbookmarkLine(Selection.Start.iLine);
-                    break;
-
-                case FCTBAction.BookmarkLine:
-                    BookmarkLine(Selection.Start.iLine);
-                    break;
-
-                case FCTBAction.GoNextBookmark:
-                    GotoNextBookmark(Selection.Start.iLine);
-                    break;
-
-                case FCTBAction.GoPrevBookmark:
-                    GotoPrevBookmark(Selection.Start.iLine);
-                    break;
+                    break;       
 
                 case FCTBAction.ClearWordLeft:
                     if (OnKeyPressing('\b')) //KeyPress event processed key
@@ -3479,102 +3450,7 @@ namespace CogEngine.ScriptEditor
             if (originalFont != null)
                 SetFont((Font)originalFont.Clone());
         }
-
-        /// <summary>
-        /// Scrolls to nearest bookmark or to first bookmark
-        /// </summary>
-        /// <param name="iLine">Current bookmark line index</param>
-        public bool GotoNextBookmark(int iLine)
-        {
-            Bookmark nearestBookmark = null;
-            int minNextLineIndex = int.MaxValue;
-            Bookmark minBookmark = null;
-            int minLineIndex = int.MaxValue;
-            foreach (Bookmark bookmark in bookmarks)
-            {
-                if (bookmark.LineIndex < minLineIndex)
-                {
-                    minLineIndex = bookmark.LineIndex;
-                    minBookmark = bookmark;
-                }
-
-                if (bookmark.LineIndex > iLine && bookmark.LineIndex < minNextLineIndex)
-                {
-                    minNextLineIndex = bookmark.LineIndex;
-                    nearestBookmark = bookmark;
-                }
-            }
-
-            if (nearestBookmark != null)
-            {
-                nearestBookmark.DoVisible();
-                return true;
-            }
-            else if (minBookmark != null)
-            {
-                minBookmark.DoVisible();
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Scrolls to nearest previous bookmark or to last bookmark
-        /// </summary>
-        /// <param name="iLine">Current bookmark line index</param>
-        public bool GotoPrevBookmark(int iLine)
-        {
-            Bookmark nearestBookmark = null;
-            int maxPrevLineIndex = -1;
-            Bookmark maxBookmark = null;
-            int maxLineIndex = -1;
-            foreach (Bookmark bookmark in bookmarks)
-            {
-                if (bookmark.LineIndex > maxLineIndex)
-                {
-                    maxLineIndex = bookmark.LineIndex;
-                    maxBookmark = bookmark;
-                }
-
-                if (bookmark.LineIndex < iLine && bookmark.LineIndex > maxPrevLineIndex)
-                {
-                    maxPrevLineIndex = bookmark.LineIndex;
-                    nearestBookmark = bookmark;
-                }
-            }
-
-            if (nearestBookmark != null)
-            {
-                nearestBookmark.DoVisible();
-                return true;
-            }
-            else if (maxBookmark != null)
-            {
-                maxBookmark.DoVisible();
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Bookmarks line
-        /// </summary>
-        public virtual void BookmarkLine(int iLine)
-        {
-            if (!bookmarks.Contains(iLine))
-                bookmarks.Add(iLine);
-        }
-
-        /// <summary>
-        /// Unbookmarks current line
-        /// </summary>
-        public virtual void UnbookmarkLine(int iLine)
-        {
-            bookmarks.Remove(iLine);
-        }
-
+                
         /// <summary>
         /// Moves selected lines down
         /// </summary>
@@ -3909,10 +3785,10 @@ namespace CogEngine.ScriptEditor
 
 
             EventHandler<AutoIndentEventArgs> calculator = AutoIndentNeeded;
-            if (calculator == null)
-                if (Language != Language.Custom && SyntaxHighlighter != null)
-                    calculator = SyntaxHighlighter.AutoIndentNeeded;
-                else
+            //if (calculator == null)
+            //    if (Language != Language.Custom && SyntaxHighlighter != null)
+            //        calculator = SyntaxHighlighter.AutoIndentNeeded;
+            //    else
                     calculator = CalcAutoIndentShiftByCodeFolding;
 
             int needSpaces = 0;
@@ -4113,10 +3989,7 @@ namespace CogEngine.ScriptEditor
             //
             int firstChar = (Math.Max(0, HorizontalScroll.Value - Paddings.Left)) / CharWidth;
             int lastChar = (HorizontalScroll.Value + ClientSize.Width) / CharWidth;
-            //create dictionary of bookmarks
-            var bookmarksByLineIndex = new Dictionary<int, Bookmark>();
-            foreach (Bookmark item in bookmarks)
-                bookmarksByLineIndex[item.LineIndex] = item;
+            
             //
             int startLine = YtoLineIndex(VerticalScroll.Value);
             int iLine;
@@ -4153,12 +4026,6 @@ namespace CogEngine.ScriptEditor
                                              new RectangleF(-10, y, LeftIndent - minLeftIndent - 2 + 10, CharHeight + 1));
                 //
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                //
-                //draw bookmark
-                if (bookmarksByLineIndex.ContainsKey(iLine))
-                    bookmarksByLineIndex[iLine].Paint(e.Graphics,
-                                                      new Rectangle(LeftIndent, y, Width,
-                                                                    CharHeight * lineInfo.WordWrapStringsCount));
                 //OnPaintLine event
                 if (lineInfo.VisibleState == VisibleState.Visible)
                     OnPaintLine(new PaintLineEventArgs(iLine,
@@ -6098,9 +5965,9 @@ namespace CogEngine.ScriptEditor
 
             if (SyntaxHighlighter != null)
             {
-                if (Language == Language.Custom && !string.IsNullOrEmpty(DescriptionFile))
-                    SyntaxHighlighter.HighlightSyntax(DescriptionFile, range);
-                else
+                //if (Language == Language.Custom && !string.IsNullOrEmpty(DescriptionFile))
+                //    SyntaxHighlighter.HighlightSyntax(DescriptionFile, range);
+                //else
                     SyntaxHighlighter.HighlightSyntax(Language, range);
             }
 

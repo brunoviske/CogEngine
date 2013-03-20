@@ -23,7 +23,7 @@ namespace CogEngine.Objects.XNA
         {
             using (FileStream f = new FileStream(CaminhoImagem, FileMode.Open))
             {
-                Textura = Texture2D.FromStream(graphicsDevice, f, Largura, Altura, false);
+                Textura = Texture2D.FromStream(graphicsDevice, f);
             }
         }
 
@@ -33,7 +33,7 @@ namespace CogEngine.Objects.XNA
             {
                 throw new Exception("O objeto Texture2D não foi inicializado. Faça chamada ao método LoadTexture antes.");
             }
-            spriteBatch.Draw(Textura, new Vector2(PosicaoX, PosicaoY), null, Color.White);
+            spriteBatch.Draw(Textura, new Rectangle(Convert.ToInt32(PosicaoX), Convert.ToInt32(PosicaoY), Largura, Altura), Color.White);
         }
 
         public int Altura
