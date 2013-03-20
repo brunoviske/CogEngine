@@ -203,5 +203,18 @@ namespace CogEngine.GameTemplate
                 som.Tocar();
             }
         }
+
+        public object Objeto(string nome)
+        {
+            ConcentradorObjeto concentrador = _CenaAtual.ListarObjetos().FirstOrDefault(c => c.Nome == nome);
+            if (concentrador != null)
+            {
+                return concentrador.XNAControl;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
