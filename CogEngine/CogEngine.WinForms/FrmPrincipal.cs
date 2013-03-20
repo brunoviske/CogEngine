@@ -323,16 +323,43 @@ namespace CogEngine.WinForms
             using Microsoft.Xna.Framework.Graphics;
             using Microsoft.Xna.Framework.Input;
             using Microsoft.Xna.Framework.Media;
+            using System.Reflection;
 
             public class " + s.NomeClasse + @" : IObjetoScript
             {
                 public GameProxy Jogo { get; private set; }
                 public ICogEngineXNAControl Objeto { get; private set; }
+                private Dicionario<string, object> Dados;
 
                 public " + s.NomeClasse + @"(GameProxy jogo, ICogEngineXNAControl objeto)
                 {
                     Jogo = jogo;
                     Objeto = objeto;
+                    Dados = new Dicionario<string, object>();
+                }
+
+                private void AlterarPropriedade(object objeto, string propriedade, object valor)
+                {
+                    Type tipo = objeto.GetType();
+                    PropertyInfo p = tipo.GetProperty(propriedade);
+                    if(p != null)
+                    {
+                        p.SetValue(objeto, valor, null);
+                    }
+                }
+
+                private object Valor(object objeto, string propriedade)
+                {
+                    Type tipo = objeto.GetType();
+                    PropertyInfo p = tipo.GetProperty(propriedade);
+                    if(p != null)
+                    {
+                        return p.GetValue(objeto, null);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
 
                 public void Update(GameTime gameTime)

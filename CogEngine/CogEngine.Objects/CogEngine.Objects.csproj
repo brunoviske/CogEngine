@@ -49,6 +49,7 @@
     <Compile Include="Cena.cs" />
     <Compile Include="ConcentradorObjeto.cs" />
     <Compile Include="Configuracao.cs" />
+    <Compile Include="Dicionario.cs" />
     <Compile Include="FiguraObjeto.cs" />
     <Compile Include="GameProxy.cs" />
     <Compile Include="ICogEngineGame.cs" />

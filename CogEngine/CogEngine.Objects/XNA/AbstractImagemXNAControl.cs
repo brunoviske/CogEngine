@@ -60,11 +60,15 @@ namespace CogEngine.Objects.XNA
             set;
         }
 
-
         public int ZIndex
         {
             get;
             set;
+        }
+
+        public new Type GetType()
+        {
+            return typeof(AbstractImagemXNAControl);
         }
     }
 }
