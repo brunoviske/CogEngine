@@ -69,6 +69,11 @@ namespace CogEngine.Objects.WinForms
             }
         }
 
+        public void RemoverObjeto(ConcentradorObjeto item)
+        {
+            Painel.Controls.Remove((Control)item.WinControl);
+        }
+
         public event NomeChangedEventHandler OnNomeChanged;
     }
 }

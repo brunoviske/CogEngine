@@ -72,7 +72,7 @@
             this.físicaToolStripMenuItem});
             this.menuStripEngine.Location = new System.Drawing.Point(12, 26);
             this.menuStripEngine.Name = "menuStripEngine";
-            this.menuStripEngine.Size = new System.Drawing.Size(266, 24);
+            this.menuStripEngine.Size = new System.Drawing.Size(174, 24);
             this.menuStripEngine.TabIndex = 0;
             this.menuStripEngine.Text = "menuStripEngine";
             // 
@@ -173,7 +173,7 @@
             // colisorToolStripMenuItem
             // 
             this.colisorToolStripMenuItem.Name = "colisorToolStripMenuItem";
-            this.colisorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.colisorToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.colisorToolStripMenuItem.Text = "Colisor";
             // 
             // GrpGameView
@@ -213,6 +213,7 @@
             this.TreeViewObjetos.Size = new System.Drawing.Size(200, 195);
             this.TreeViewObjetos.TabIndex = 5;
             this.TreeViewObjetos.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewObjetos_AfterSelect);
+            this.TreeViewObjetos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TreeViewObjetos_KeyDown);
             // 
             // LstScript
             // 
@@ -224,6 +225,7 @@
             this.LstScript.Size = new System.Drawing.Size(138, 95);
             this.LstScript.TabIndex = 6;
             this.LstScript.DoubleClick += new System.EventHandler(this.LstScript_DoubleClick);
+            this.LstScript.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LstScript_KeyDown);
             // 
             // LblTextoScript
             // 

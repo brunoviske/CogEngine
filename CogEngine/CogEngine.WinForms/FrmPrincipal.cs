@@ -18,6 +18,7 @@ namespace CogEngine.WinForms
     {
         #region Propriedades
         List<CenaWinForm> _ListaCena;
+        BindingList<Script> _ListaScripts;
         CenaWinForm _CenaAtual;
         ToolTip toolMaxRest = new ToolTip();
         public bool IsDragging { get; set; }
@@ -26,12 +27,12 @@ namespace CogEngine.WinForms
         public Int64 MouseYInicial { get; set; }
 
         #region Propriedades do Drag n Drop dos itens
-        Control controleTela = null;
-        bool redimensionandoControle = false;
-        int resizingMargin = 5;
-        private Point pontoInicialDrag;
-        private Size tamanhoInicial;
-        Rectangle novoRetangulo = Rectangle.Empty;
+            Control controleTela = null;
+            bool redimensionandoControle = false;
+            int resizingMargin = 5;
+            private Point pontoInicialDrag;
+            private Size tamanhoInicial;
+            Rectangle novoRetangulo = Rectangle.Empty;
         #endregion
         #endregion
 
@@ -332,43 +333,16 @@ namespace CogEngine.WinForms
             using Microsoft.Xna.Framework.Graphics;
             using Microsoft.Xna.Framework.Input;
             using Microsoft.Xna.Framework.Media;
-            using System.Reflection;
 
             public class " + s.NomeClasse + @" : IObjetoScript
             {
                 public GameProxy Jogo { get; private set; }
                 public ICogEngineXNAControl Objeto { get; private set; }
-                private Dicionario<string, object> Dados;
 
                 public " + s.NomeClasse + @"(GameProxy jogo, ICogEngineXNAControl objeto)
                 {
                     Jogo = jogo;
                     Objeto = objeto;
-                    Dados = new Dicionario<string, object>();
-                }
-
-                private void AlterarPropriedade(object objeto, string propriedade, object valor)
-                {
-                    Type tipo = objeto.GetType();
-                    PropertyInfo p = tipo.GetProperty(propriedade);
-                    if(p != null)
-                    {
-                        p.SetValue(objeto, valor, null);
-                    }
-                }
-
-                private object Valor(object objeto, string propriedade)
-                {
-                    Type tipo = objeto.GetType();
-                    PropertyInfo p = tipo.GetProperty(propriedade);
-                    if(p != null)
-                    {
-                        return p.GetValue(objeto, null);
-                    }
-                    else
-                    {
-                        return null;
-                    }
                 }
 
                 public void Update(GameTime gameTime)
@@ -403,6 +377,53 @@ namespace CogEngine.WinForms
             AdicionarCena();
         }
 
+        private void adicionarScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FrmScript frmScript = new FrmScript())
+            {
+                frmScript.ShowDialog();
+                if (frmScript.OK)
+                {
+                    Script script = new Script();
+                    script.NomeAmigavel = frmScript.NomeScript;
+                    script.CodigoScript = frmScript.CodigoScript;
+                    _ListaScripts.Add(script);
+                    CboUpdate.Items.Add(script);
+                }
+            }
+        }
+        
+        private void adicionarSomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Title = "Procurar som";
+            openFileDialog1.Filter = "Sons (*.WAV)|*.WAV|" + "All files (*.*)|*.*";
+            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+            openFileDialog1.FileName = null;
+            DialogResult resultado = openFileDialog1.ShowDialog();
+
+            if (resultado == System.Windows.Forms.DialogResult.OK)
+            {
+                if (openFileDialog1.FileName.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!LstSons.Items.Contains(openFileDialog1.SafeFileName))
+                    {
+                        SomWinForm som = new SomWinForm(openFileDialog1.FileName);
+                        int i = openFileDialog1.FileName.LastIndexOf('\\');
+                        som.Nome = openFileDialog1.FileName.Substring(i + 1);
+                        LstSons.Items.Add(som);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esse arquivo já está incluso na lista de sons!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("É permitido apenas arquivo do tipo .wav");
+                }
+            }
+        }
+        
         private void ExcluirArquivo(string pasta)
         {
             string[] arquivos = Directory.GetFiles(pasta);
@@ -438,10 +459,12 @@ namespace CogEngine.WinForms
                 if (objeto.WinControl != null)
                 {
                     Control c = objeto.WinControl.InitWinControl();
+
                     c.Click += ControClick;
                     c.MouseDown += new MouseEventHandler(ControMouseDown);
                     c.MouseUp += new MouseEventHandler(ControMouseUp);
                     c.MouseMove += new MouseEventHandler(ControMouseMove);
+
                     _CenaAtual.AdicionarObjeto(objeto);
                     TreeViewObjetos.Nodes[_CenaAtual.ID].Nodes.Add(objeto.Nome);
                 }
@@ -455,7 +478,7 @@ namespace CogEngine.WinForms
         public void ControMouseMove(object sender, MouseEventArgs e)
         {
             if (controleTela != null)
-            {
+            {   
                 if (redimensionandoControle)
                 {
                     // erase rect
@@ -514,37 +537,45 @@ namespace CogEngine.WinForms
         public void ControMouseDown(object sender, MouseEventArgs e)
         {
             controleTela = sender as Control;
-
-            if ((e.X <= resizingMargin) || (e.X >= controleTela.Width - resizingMargin) ||
-                (e.Y <= resizingMargin) || (e.Y >= controleTela.Height - resizingMargin))
+            if (controleTela.GetType() != typeof(TextoWinControl))
             {
-                redimensionandoControle = true;
+                if ((e.X <= resizingMargin) || (e.X >= controleTela.Width - resizingMargin) ||
+                    (e.Y <= resizingMargin) || (e.Y >= controleTela.Height - resizingMargin))
+                {
+                    redimensionandoControle = true;
 
-                // indicate resizing
-                this.Cursor = Cursors.SizeNWSE;
+                    // indicate resizing
+                    this.Cursor = Cursors.SizeNWSE;
 
-                // tamanho inicial
-                this.tamanhoInicial = new Size(e.X, e.Y);
+                    // tamanho inicial
+                    this.tamanhoInicial = new Size(e.X, e.Y);
 
-                //Ajuste do ponto
-                Point p = new Point(controleTela.Location.X + GrpGameView.Location.X, controleTela.Location.Y + GrpGameView.Location.Y);
+                    //Ajuste do ponto
+                    Point p = new Point(controleTela.Location.X + GrpGameView.Location.X, controleTela.Location.Y + GrpGameView.Location.Y);
 
-                // Obtenho a localização do picture box
-                Point pt = this.PointToScreen(p);
-                novoRetangulo = new Rectangle(pt, tamanhoInicial);
+                    // Obtenho a localização do picture box
+                    Point pt = this.PointToScreen(p);
+                    novoRetangulo = new Rectangle(pt, tamanhoInicial);
 
-                // desenho o retangulo
-                ControlPaint.DrawReversibleFrame(novoRetangulo, this.ForeColor, FrameStyle.Dashed);
+                    // desenho o retangulo
+                    ControlPaint.DrawReversibleFrame(novoRetangulo, this.ForeColor, FrameStyle.Dashed);
+                }
+                else
+                {
+                    redimensionandoControle = false;
+                    // indicate moving
+                    this.Cursor = Cursors.SizeAll;
+                }
+
+                // start point location
+                this.pontoInicialDrag = e.Location;
             }
             else
             {
-                redimensionandoControle = false;
-                // indicate moving
                 this.Cursor = Cursors.SizeAll;
+                // start point location
+                this.pontoInicialDrag = e.Location;
             }
-
-            // start point location
-            this.pontoInicialDrag = e.Location;
         }
 
         #endregion
@@ -593,21 +624,25 @@ namespace CogEngine.WinForms
             }
         }
 
-        private void adicionarScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TreeViewObjetos_KeyDown(object sender, KeyEventArgs e)
         {
-            using (FrmScript frmScript = new FrmScript())
-            {
-                frmScript.ShowDialog();
-                if (frmScript.OK)
-                {
-                    Script script = new Script();
-                    script.NomeAmigavel = frmScript.NomeScript;
-                    script.CodigoScript = frmScript.CodigoScript;
-                    LstScript.Items.Add(script);
-                    CboUpdate.Items.Add(script);
-                }
-            }
-        }
+            CenaWinForm cena;
+
+            if(e.KeyCode == Keys.Delete)
+                if (TreeViewObjetos.SelectedNode != null)
+                    if (DialogResult.Yes == MessageBox.Show("Confirma a exclusão deste item?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                    {
+                        if (TreeViewObjetos.SelectedNode.Parent !=null)
+                            cena = _ListaCena.First(c => c.Nome == TreeViewObjetos.SelectedNode.Parent.Text);
+                        else
+                            cena = _ListaCena.First(c => c.Nome == TreeViewObjetos.SelectedNode.Text);
+
+                        ConcentradorObjeto objeto = cena.ListarObjetos().First(f => f.Nome == TreeViewObjetos.SelectedNode.Text);
+                        cena.RemoverObjeto(objeto);
+
+                        TreeViewObjetos.Nodes.Remove(TreeViewObjetos.SelectedNode);
+                    }           
+        }        
 
         private void CboUpdate_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -655,10 +690,14 @@ namespace CogEngine.WinForms
 
                 //Inicio a Engine
                 _ListaCena = new List<CenaWinForm>();
+                _ListaScripts = new BindingList<Script>();
+                _ListaScripts.ListChanged += new ListChangedEventHandler(_ListaScripts_ListChanged);
+                
                 Configuracao.Iniciar(Plataforma.Forms);
                 LoadItems();
                 CboUpdate.Items.Add(VAZIO);
                 CboUpdate.SelectedIndex = 0;
+                LstScript.DataSource = _ListaScripts;
 
                 document = new XmlDocument();
                 document.Load(caminhoArquivo);
@@ -671,7 +710,7 @@ namespace CogEngine.WinForms
                     script.NomeAmigavel = scriptNode.Attributes.GetNamedItem("Nome").Value;
                     script.ID = scriptNode.Attributes.GetNamedItem("ID").Value;
                     script.CodigoScript = scriptNode.Attributes.GetNamedItem("Codigo").Value;
-                    LstScript.Items.Add(script);
+                    _ListaScripts.Add(script);
                     CboUpdate.Items.Add(script);
                 }
 
@@ -692,6 +731,7 @@ namespace CogEngine.WinForms
 
                     //Adiciono a lista de cenas para controle
                     _ListaCena.Add(cena);
+
 
                     //Itero os objetos
                     foreach (XmlNode objetoNode in cenaNode.SelectNodes("Objetos/Objeto"))
@@ -729,6 +769,10 @@ namespace CogEngine.WinForms
                         //Crio o controle, adiciono seu evento para exibição dos detalhes e os adiciono na cena                       
                         Control ctr = o.WinControl.InitWinControl();
                         ctr.Click += ControClick;
+                        ctr.MouseDown += new MouseEventHandler(ControMouseDown);
+                        ctr.MouseUp += new MouseEventHandler(ControMouseUp);
+                        ctr.MouseMove += new MouseEventHandler(ControMouseMove);
+
                         cena.AdicionarObjeto(o);
                         TreeViewObjetos.Nodes[cena.ID].Nodes.Add(o.Nome);
                     }
@@ -738,6 +782,19 @@ namespace CogEngine.WinForms
             //Carrego a primeira cena caso haja alguma
             if (_ListaCena.Count > 0)
                 CarregarCena(_ListaCena[0]);
+        }
+
+        void _ListaScripts_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            switch (e.ListChangedType)
+            {
+                case ListChangedType.ItemAdded:
+                    break;
+                case ListChangedType.ItemDeleted:
+                    break;
+                case ListChangedType.ItemChanged:
+                    break;
+            }
         }
 
         private void salvarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -852,7 +909,7 @@ namespace CogEngine.WinForms
                 //Crio nó para armazenamento dos scripts da engine
                 node = xml.CreateNode(XmlNodeType.Element, "Scripts", "");
 
-                foreach (var item in LstScript.Items)
+                foreach (var item in _ListaScripts)
                 {
                     nodeScript = xml.CreateNode(XmlNodeType.Element, "Script", "");
 
@@ -914,6 +971,10 @@ namespace CogEngine.WinForms
         private void LoadEngine()
         {
             _ListaCena = new List<CenaWinForm>();
+            _ListaScripts = new BindingList<Script>();
+            _ListaScripts.ListChanged += new ListChangedEventHandler(_ListaScripts_ListChanged);
+
+            LstScript.DataSource = _ListaScripts;
             Configuracao.Iniciar(Plataforma.Forms);
             LoadItems();
             NewProject();
@@ -934,12 +995,16 @@ namespace CogEngine.WinForms
         private void ClearEngine()
         {
             LstControles.Items.Clear();
-            LstScript.Items.Clear();
             TreeViewObjetos.Nodes.Clear();
             GrpGameView.Controls.Clear();
             CboUpdate.Items.Clear();
+            LstScript.DataSource = null;
+            _ListaScripts = new BindingList<Script>();
+            LstScript.DataSource = _ListaScripts;
+            PropertyControl.SelectedObject = null;
             ConcentradorTexto._Num = 1;
             Triangulo.Num = 1;
+            _NumCena = 1;
         }
 
         private void btnMinimizar_Click(object sender, EventArgs e)
@@ -980,55 +1045,55 @@ namespace CogEngine.WinForms
             //Obtenho o script para edição
             if (LstScript.SelectedItem != null)
             {
+                Script s = (Script)LstScript.SelectedItem;
+
                 FrmScript frmScript = new FrmScript();
-                frmScript.CodigoScript = ((Script)LstScript.SelectedItem).CodigoScript;
-                frmScript.NomeScript = ((Script)LstScript.SelectedItem).NomeAmigavel;
+                frmScript.CodigoScript = _ListaScripts[LstScript.SelectedIndex].CodigoScript;
+                frmScript.NomeScript = _ListaScripts[LstScript.SelectedIndex].NomeAmigavel;
                 frmScript.ShowDialog();
 
                 //Atribuo as alterações
-                ((Script)LstScript.SelectedItem).CodigoScript = frmScript.CodigoScript;
-                ((Script)LstScript.SelectedItem).NomeAmigavel = frmScript.NomeScript;
+                _ListaScripts[LstScript.SelectedIndex].CodigoScript = frmScript.CodigoScript;
+                _ListaScripts[LstScript.SelectedIndex].NomeAmigavel = frmScript.NomeScript;
+
+                LstScript.DataSource = null;
+                LstScript.DataSource = _ListaScripts;
+
+                CboUpdate.Items[CboUpdate.Items.IndexOf(s)] = s;
             }
         }
 
-        private void adicionarSomToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LstScript_KeyDown(object sender, KeyEventArgs e)
         {
-            openFileDialog1.Title = "Procurar som";
-            openFileDialog1.Filter = "Sons (*.WAV)|*.WAV|" + "All files (*.*)|*.*";
-            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-            openFileDialog1.FileName = null;
-            DialogResult resultado = openFileDialog1.ShowDialog();
-
-            if (resultado == System.Windows.Forms.DialogResult.OK)
+            if (e.KeyCode == Keys.Delete)
             {
-                if (openFileDialog1.FileName.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
+                if (LstScript.SelectedItem != null)
                 {
-                    if (!LstSons.Items.Contains(openFileDialog1.SafeFileName))
+                    object objLista = LstScript.SelectedItem;
+
+                    if (DialogResult.Yes == MessageBox.Show("Confirma a exclusão deste script?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
-                        SomWinForm som = new SomWinForm(openFileDialog1.FileName);
-                        int i = openFileDialog1.FileName.LastIndexOf('\\');
-                        som.Nome = openFileDialog1.FileName.Substring(i + 1);
-                        LstSons.Items.Add(som);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Esse arquivo já está incluso na lista de sons!");
+                        _ListaScripts.Remove((Script)objLista);
+                        CboUpdate.Items.Remove((Script)objLista);
                     }
                 }
-                else
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (LstScript.SelectedItem != null)
                 {
-                    MessageBox.Show("É permitido apenas arquivo do tipo .wav");
+                    FrmScript frmScript = new FrmScript();
+                    frmScript.CodigoScript = ((Script)LstScript.SelectedItem).CodigoScript;
+                    frmScript.NomeScript = ((Script)LstScript.SelectedItem).NomeAmigavel;
+                    frmScript.ShowDialog();
+
+                    //Atribuo as alterações
+                    ((Script)LstScript.SelectedItem).CodigoScript = frmScript.CodigoScript;
+                    ((Script)LstScript.SelectedItem).NomeAmigavel = frmScript.NomeScript;
                 }
             }
         }
 
-        private void PropertyControl_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            if (e.ChangedItem.Label == "ZIndex")
-            {
-                _CenaAtual.Ordenar();
-                _CenaAtual.CarregarPainel();
-            }
-        }
     }
 }
