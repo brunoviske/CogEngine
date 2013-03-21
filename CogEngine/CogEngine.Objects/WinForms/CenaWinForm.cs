@@ -60,6 +60,15 @@ namespace CogEngine.Objects.WinForms
             base.AdicionarObjeto(item);
         }
 
+        public void CarregarPainel()
+        {
+            Painel.Controls.Clear();
+            for (int i = _ListaObjeto.Count - 1; i >= 0; i--)
+            {
+                Painel.Controls.Add((Control)_ListaObjeto[i].WinControl);
+            }
+        }
+
         public event NomeChangedEventHandler OnNomeChanged;
     }
 }

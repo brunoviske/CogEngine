@@ -26,12 +26,12 @@ namespace CogEngine.WinForms
         public Int64 MouseYInicial { get; set; }
 
         #region Propriedades do Drag n Drop dos itens
-            Control controleTela = null;
-            bool redimensionandoControle = false;
-            int resizingMargin = 5;
-            private Point pontoInicialDrag;
-            private Size tamanhoInicial;
-            Rectangle novoRetangulo = Rectangle.Empty;
+        Control controleTela = null;
+        bool redimensionandoControle = false;
+        int resizingMargin = 5;
+        private Point pontoInicialDrag;
+        private Size tamanhoInicial;
+        Rectangle novoRetangulo = Rectangle.Empty;
         #endregion
         #endregion
 
@@ -532,7 +532,7 @@ namespace CogEngine.WinForms
                 // Obtenho a localização do picture box
                 Point pt = this.PointToScreen(p);
                 novoRetangulo = new Rectangle(pt, tamanhoInicial);
-                
+
                 // desenho o retangulo
                 ControlPaint.DrawReversibleFrame(novoRetangulo, this.ForeColor, FrameStyle.Dashed);
             }
@@ -1022,5 +1022,13 @@ namespace CogEngine.WinForms
             }
         }
 
+        private void PropertyControl_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            if (e.ChangedItem.Label == "ZIndex")
+            {
+                _CenaAtual.Ordenar();
+                _CenaAtual.CarregarPainel();
+            }
+        }
     }
 }

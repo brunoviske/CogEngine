@@ -9,7 +9,7 @@ namespace CogEngine.Objects
 {
     public class Cena
     {
-        private List<ConcentradorObjeto> _ListaObjeto;
+        protected List<ConcentradorObjeto> _ListaObjeto;
 
         public virtual Color Cor { get; set; }
 
@@ -34,6 +34,11 @@ namespace CogEngine.Objects
         private int Comparar(ConcentradorObjeto x, ConcentradorObjeto y)
         {
             return x.XNAControl.ZIndex.CompareTo(y.XNAControl.ZIndex);
+        }
+
+        public void Ordenar()
+        {
+            _ListaObjeto.Sort(Comparar);
         }
     }
 }
