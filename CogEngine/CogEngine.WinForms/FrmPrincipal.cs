@@ -684,7 +684,7 @@ namespace CogEngine.WinForms
             //Obtenho o caminho do XML
             caminhoArquivo = op.FileName;
 
-            if (!string.IsNullOrEmpty(caminhoArquivo) && !string.IsNullOrEmpty(caminhoArquivo))
+            if (!string.IsNullOrEmpty(caminhoArquivo) && !string.IsNullOrWhiteSpace(caminhoArquivo))
             {
                 ClearEngine();
 
@@ -704,14 +704,17 @@ namespace CogEngine.WinForms
 
                 XmlNode scripts = document.GetElementsByTagName("Scripts")[0];
 
-                foreach (XmlNode scriptNode in scripts.ChildNodes)
+                if (scripts.ChildNodes != null)
                 {
-                    Script script = new Script();
-                    script.NomeAmigavel = scriptNode.Attributes.GetNamedItem("Nome").Value;
-                    script.ID = scriptNode.Attributes.GetNamedItem("ID").Value;
-                    script.CodigoScript = scriptNode.Attributes.GetNamedItem("Codigo").Value;
-                    _ListaScripts.Add(script);
-                    CboUpdate.Items.Add(script);
+                    foreach (XmlNode scriptNode in scripts.ChildNodes)
+                    {
+                        Script script = new Script();
+                        script.NomeAmigavel = scriptNode.Attributes.GetNamedItem("Nome").Value;
+                        script.ID = scriptNode.Attributes.GetNamedItem("ID").Value;
+                        script.CodigoScript = scriptNode.Attributes.GetNamedItem("Codigo").Value;
+                        _ListaScripts.Add(script);
+                        CboUpdate.Items.Add(script);
+                    }
                 }
 
                 XmlNode jogo = document.GetElementsByTagName("Jogo")[0];
