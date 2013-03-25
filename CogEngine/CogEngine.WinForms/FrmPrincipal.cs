@@ -27,12 +27,12 @@ namespace CogEngine.WinForms
         public Int64 MouseYInicial { get; set; }
 
         #region Propriedades do Drag n Drop dos itens
-            Control controleTela = null;
-            bool redimensionandoControle = false;
-            int resizingMargin = 5;
-            private Point pontoInicialDrag;
-            private Size tamanhoInicial;
-            Rectangle novoRetangulo = Rectangle.Empty;
+        Control controleTela = null;
+        bool redimensionandoControle = false;
+        int resizingMargin = 5;
+        private Point pontoInicialDrag;
+        private Size tamanhoInicial;
+        Rectangle novoRetangulo = Rectangle.Empty;
         #endregion
         #endregion
 
@@ -333,16 +333,43 @@ namespace CogEngine.WinForms
             using Microsoft.Xna.Framework.Graphics;
             using Microsoft.Xna.Framework.Input;
             using Microsoft.Xna.Framework.Media;
+            using System.Reflection;
 
             public class " + s.NomeClasse + @" : IObjetoScript
             {
                 public GameProxy Jogo { get; private set; }
                 public ICogEngineXNAControl Objeto { get; private set; }
+                private Dicionario<string, object> Dados;
 
                 public " + s.NomeClasse + @"(GameProxy jogo, ICogEngineXNAControl objeto)
                 {
                     Jogo = jogo;
                     Objeto = objeto;
+                    Dados = new Dicionario<string, object>();
+                }
+
+                private void AlterarPropriedade(object objeto, string propriedade, object valor)
+                {
+                    Type tipo = objeto.GetType();
+                    PropertyInfo p = tipo.GetProperty(propriedade);
+                    if(p != null)
+                    {
+                        p.SetValue(objeto, valor, null);
+                    }
+                }
+
+                private object Valor(object objeto, string propriedade)
+                {
+                    Type tipo = objeto.GetType();
+                    PropertyInfo p = tipo.GetProperty(propriedade);
+                    if(p != null)
+                    {
+                        return p.GetValue(objeto, null);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
 
                 public void Update(GameTime gameTime)
@@ -392,7 +419,7 @@ namespace CogEngine.WinForms
                 }
             }
         }
-        
+
         private void adicionarSomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.Title = "Procurar som";
@@ -423,7 +450,7 @@ namespace CogEngine.WinForms
                 }
             }
         }
-        
+
         private void ExcluirArquivo(string pasta)
         {
             string[] arquivos = Directory.GetFiles(pasta);
@@ -478,7 +505,7 @@ namespace CogEngine.WinForms
         public void ControMouseMove(object sender, MouseEventArgs e)
         {
             if (controleTela != null)
-            {   
+            {
                 if (redimensionandoControle)
                 {
                     // erase rect
@@ -628,11 +655,11 @@ namespace CogEngine.WinForms
         {
             CenaWinForm cena;
 
-            if(e.KeyCode == Keys.Delete)
+            if (e.KeyCode == Keys.Delete)
                 if (TreeViewObjetos.SelectedNode != null)
                     if (DialogResult.Yes == MessageBox.Show("Confirma a exclusão deste item?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
-                        if (TreeViewObjetos.SelectedNode.Parent !=null)
+                        if (TreeViewObjetos.SelectedNode.Parent != null)
                             cena = _ListaCena.First(c => c.Nome == TreeViewObjetos.SelectedNode.Parent.Text);
                         else
                             cena = _ListaCena.First(c => c.Nome == TreeViewObjetos.SelectedNode.Text);
@@ -641,8 +668,8 @@ namespace CogEngine.WinForms
                         cena.RemoverObjeto(objeto);
 
                         TreeViewObjetos.Nodes.Remove(TreeViewObjetos.SelectedNode);
-                    }           
-        }        
+                    }
+        }
 
         private void CboUpdate_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -692,7 +719,7 @@ namespace CogEngine.WinForms
                 _ListaCena = new List<CenaWinForm>();
                 _ListaScripts = new BindingList<Script>();
                 _ListaScripts.ListChanged += new ListChangedEventHandler(_ListaScripts_ListChanged);
-                
+
                 Configuracao.Iniciar(Plataforma.Forms);
                 LoadItems();
                 CboUpdate.Items.Add(VAZIO);
@@ -1081,8 +1108,7 @@ namespace CogEngine.WinForms
                     }
                 }
             }
-
-            if (e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == Keys.Enter)
             {
                 if (LstScript.SelectedItem != null)
                 {
@@ -1098,5 +1124,13 @@ namespace CogEngine.WinForms
             }
         }
 
+        private void PropertyControl_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
+        {
+            if (e.ChangedItem.Label == "ZIndex")
+            {
+                _CenaAtual.Ordenar();
+                _CenaAtual.CarregarPainel();
+            }
+        }
     }
 }

@@ -204,6 +204,7 @@
             this.PropertyControl.Name = "PropertyControl";
             this.PropertyControl.Size = new System.Drawing.Size(200, 206);
             this.PropertyControl.TabIndex = 4;
+            this.PropertyControl.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyControl_PropertyValueChanged);
             // 
             // TreeViewObjetos
             // 
