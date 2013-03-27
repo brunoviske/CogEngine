@@ -8,5 +8,6 @@ namespace CogEngine.Objects
         void CarregarCena(string nomeCena);
         void Tocar(string nome);
         object Objeto(string nome);
+        void OrdenarZIndex();
     }
 }

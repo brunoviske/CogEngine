@@ -220,5 +220,10 @@ namespace CogEngine.GameTemplate
                 return null;
             }
         }
+
+        public void OrdenarZIndex()
+        {
+            _CenaAtual.Ordenar();
+        }
     }
 }

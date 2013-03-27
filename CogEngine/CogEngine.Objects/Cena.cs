@@ -23,7 +23,7 @@ namespace CogEngine.Objects
         public virtual void AdicionarObjeto(ConcentradorObjeto item)
         {
             _ListaObjeto.Add(item);
-            _ListaObjeto.Sort(Comparar);
+            Ordenar();
         }
 
         public ConcentradorObjeto[] ListarObjetos()

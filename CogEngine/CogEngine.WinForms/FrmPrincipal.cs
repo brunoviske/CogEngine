@@ -797,7 +797,7 @@ namespace CogEngine.WinForms
                             o.WinControl.IDScript = objetoNode.ChildNodes[1].Attributes[1].Value;
 
                         //Crio o controle, adiciono seu evento para exibição dos detalhes e os adiciono na cena                       
-                        Control ctr = o.WinControl.InitWinControl();
+                        Control ctr = o.WinControl.GetControl();
                         ctr.Click += ControClick;
                         ctr.MouseDown += new MouseEventHandler(ControMouseDown);
                         ctr.MouseUp += new MouseEventHandler(ControMouseUp);

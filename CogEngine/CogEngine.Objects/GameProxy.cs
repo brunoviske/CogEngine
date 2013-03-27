@@ -25,10 +25,14 @@ namespace CogEngine.Objects
             _Game.Tocar(nome);
         }
 
-
         public object Objeto(string nome)
         {
             return _Game.Objeto(nome);
+        }
+
+        public void OrdenarZIndex()
+        {
+            _Game.OrdenarZIndex();
         }
     }
 }

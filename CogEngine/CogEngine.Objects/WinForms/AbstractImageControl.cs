@@ -10,18 +10,22 @@ namespace CogEngine.Objects.WinForms
 {
     public abstract class AbstractImageControl : PictureBox, ICogEngineWinControl, IFigura
     {
+        public AbstractImageControl()
+        {
+            SizeMode = PictureBoxSizeMode.StretchImage;
+            TabIndex = 0;
+            TabStop = false;
+        }
+
         public abstract ConcentradorObjeto Objeto { get; }
 
-        public Control InitWinControl()
+        public virtual Control InitWinControl()
         {
             int x = Convert.ToInt32(PosicaoX);
             int y = Convert.ToInt32(PosicaoY);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager();
             Location = new System.Drawing.Point(x, y);
-            SizeMode = PictureBoxSizeMode.StretchImage;
             Name = "pictureBox1";
-            TabIndex = 0;
-            TabStop = false;
             return GetControl();
         }
 
