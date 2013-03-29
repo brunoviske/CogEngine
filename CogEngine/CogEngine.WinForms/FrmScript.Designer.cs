@@ -37,6 +37,8 @@
             // 
             // TxtNomeScript
             // 
+            this.TxtNomeScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtNomeScript.Location = new System.Drawing.Point(98, 16);
             this.TxtNomeScript.Name = "TxtNomeScript";
             this.TxtNomeScript.Size = new System.Drawing.Size(365, 20);
@@ -62,6 +64,7 @@
             // 
             // btnOK
             // 
+            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOK.Location = new System.Drawing.Point(205, 271);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
@@ -72,7 +75,9 @@
             // 
             // panelScript
             // 
-            this.panelScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelScript.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panelScript.Location = new System.Drawing.Point(12, 61);
             this.panelScript.Name = "panelScript";
             this.panelScript.Size = new System.Drawing.Size(451, 205);
@@ -88,7 +93,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.LblScript);
             this.Controls.Add(this.TxtNomeScript);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmScript";
