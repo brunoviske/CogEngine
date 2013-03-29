@@ -834,7 +834,6 @@ namespace CogEngine.WinForms
                 string arquivo = string.Empty;
 
                 SaveFileDialog sf = new SaveFileDialog();
-                sf.InitialDirectory = Configuracao.RetornarPastaTemp();
                 sf.Title = "CogEngine - Salvar Projeto";
                 sf.DefaultExt = "xml";
                 sf.Filter = "XML|*.xml";
@@ -977,7 +976,10 @@ namespace CogEngine.WinForms
 
         private void fecharToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClearEngine();
+            if (MessageBox.Show("Deseja fechar o projeto?", "CogEngine - Fechar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                ClearEngine();
+            }
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
