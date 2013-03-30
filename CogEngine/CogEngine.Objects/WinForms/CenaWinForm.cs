@@ -74,6 +74,11 @@ namespace CogEngine.Objects.WinForms
             Painel.Controls.Remove((Control)item.WinControl);
         }
 
+        protected override int Comparar(ConcentradorObjeto x, ConcentradorObjeto y)
+        {
+            return x.WinControl.ZIndex.CompareTo(y.WinControl.ZIndex);
+        }
+
         public event NomeChangedEventHandler OnNomeChanged;
     }
 }

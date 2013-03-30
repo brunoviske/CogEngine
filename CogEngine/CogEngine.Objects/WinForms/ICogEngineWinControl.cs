@@ -8,5 +8,6 @@ namespace CogEngine.Objects.WinForms
         Control InitWinControl();
         Control GetControl();
         string IDScript { get; set; }
+        int ZIndex { get; set; }
     }
 }

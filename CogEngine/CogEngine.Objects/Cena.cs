@@ -31,7 +31,7 @@ namespace CogEngine.Objects
             return _ListaObjeto.ToArray();
         }
 
-        private int Comparar(ConcentradorObjeto x, ConcentradorObjeto y)
+        protected virtual int Comparar(ConcentradorObjeto x, ConcentradorObjeto y)
         {
             return x.XNAControl.ZIndex.CompareTo(y.XNAControl.ZIndex);
         }
