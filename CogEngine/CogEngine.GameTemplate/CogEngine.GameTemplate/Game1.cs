@@ -92,23 +92,30 @@ namespace CogEngine.GameTemplate
                         foreach (XmlNode nodeProp in objetoNode.ChildNodes[0].ChildNodes)
                         {
                             attribute = nodeProp.Attributes[0];
-                            p = baseInterface.GetProperty(attribute.Name);
-                            if (p.PropertyType == typeof(int))
+                            if (attribute.Name == "Nome")
                             {
-                                p.SetValue(o.XNAControl, Convert.ToInt32(attribute.Value), null);
-                            }
-                            else if (p.PropertyType == typeof(float))
-                            {
-                                p.SetValue(o.XNAControl, float.Parse(attribute.Value), null);
-                            }
-                            else if (p.PropertyType == typeof(System.Drawing.Color))
-                            {
-                                System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
-                                p.SetValue(o.XNAControl, c, null);
+                                o.Nome = attribute.Value;
                             }
                             else
                             {
-                                p.SetValue(o.XNAControl, attribute.Value, null);
+                                p = baseInterface.GetProperty(attribute.Name);
+                                if (p.PropertyType == typeof(int))
+                                {
+                                    p.SetValue(o.XNAControl, Convert.ToInt32(attribute.Value), null);
+                                }
+                                else if (p.PropertyType == typeof(float))
+                                {
+                                    p.SetValue(o.XNAControl, float.Parse(attribute.Value), null);
+                                }
+                                else if (p.PropertyType == typeof(System.Drawing.Color))
+                                {
+                                    System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
+                                    p.SetValue(o.XNAControl, c, null);
+                                }
+                                else
+                                {
+                                    p.SetValue(o.XNAControl, attribute.Value, null);
+                                }
                             }
                         }
                         if (objetoNode.ChildNodes.Count > 1)

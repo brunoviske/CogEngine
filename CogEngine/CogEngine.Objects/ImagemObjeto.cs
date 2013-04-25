@@ -5,7 +5,6 @@ namespace CogEngine.Objects
     [Objeto("Imagem", typeof(ImagemObjeto))]
     public class ImagemObjeto : AbstractImagemObjeto
     {
-        private string _Nome;
         private WinForms.CustomImageWincontrol _CustomWinImage;
         private XNA.CustomImageXNAControl _CustomXNAImage;
 
@@ -33,31 +32,14 @@ namespace CogEngine.Objects
             }
         }
 
-        public override string Nome
-        {
-            get
-            {
-                if (_Nome == null)
-                {
-                    _Nome = GetNome();
-                }
-                return _Nome;
-            }
-            set
-            {
-                _Nome = value;
-            }
-        }
-
-        private static int _I = 1;
-        private static string GetNome()
-        {
-            return "Imagem " + _I++;
-        }
-
         public override Type BaseInterface
         {
             get { return typeof(ICustomImage); }
+        }
+
+        protected override string Prefixo
+        {
+            get { return "Imagem"; }
         }
     }
 }

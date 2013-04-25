@@ -10,17 +10,6 @@ namespace CogEngine.Objects
     [Objeto("Texto", typeof(ConcentradorTexto))]
     public class ConcentradorTexto : ConcentradorObjeto
     {
-        public ConcentradorTexto()
-        {
-            Nome = GetNome();
-        }
-
-        public override string Nome
-        {
-            get;
-            set;
-        }
-
         private TextoWinControl _TextoWinControl;
         public override ICogEngineWinControl WinControl
         {
@@ -52,10 +41,9 @@ namespace CogEngine.Objects
             get { return typeof(ITexto); }
         }
 
-        public static int _Num = 1;
-        private static string GetNome()
+        protected override string Prefixo
         {
-            return "Texto " + _Num++;
+            get { return "Texto"; }
         }
     }
 }

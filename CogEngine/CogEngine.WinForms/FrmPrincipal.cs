@@ -242,6 +242,12 @@ namespace CogEngine.WinForms
                                     nodePropriedades.AppendChild(nodeProp);
                                 }
                             }
+                            nodeProp = xml.CreateNode(XmlNodeType.Element, "Propriedade", "");
+                            attribute = xml.CreateAttribute("Nome");
+                            attribute.Value = ((ICogEngineWinControl)c).Objeto.Nome;
+                            nodeProp.Attributes.Append(attribute);
+                            nodePropriedades.AppendChild(nodeProp);
+
                             AtrelarScript((ICogEngineWinControl)c, node);
                             controles.AppendChild(node);
                         }
@@ -485,6 +491,7 @@ namespace CogEngine.WinForms
                 ConcentradorObjeto objeto = (ConcentradorObjeto)o.TipoRelacionado.GetConstructor(Type.EmptyTypes).Invoke(null);
                 if (objeto.WinControl != null)
                 {
+                    objeto.IniciarNome();
                     Control c = objeto.WinControl.InitWinControl();
 
                     c.Click += ControClick;
@@ -772,23 +779,30 @@ namespace CogEngine.WinForms
                         foreach (XmlNode nodeProp in objetoNode.ChildNodes[0].ChildNodes)
                         {
                             attribute = nodeProp.Attributes[0];
-                            p = baseInterface.GetProperty(attribute.Name);
-                            if (p.PropertyType == typeof(int))
+                            if (attribute.Name == "Nome")
                             {
-                                p.SetValue(o.WinControl, Convert.ToInt32(attribute.Value), null);
-                            }
-                            else if (p.PropertyType == typeof(float))
-                            {
-                                p.SetValue(o.WinControl, float.Parse(attribute.Value), null);
-                            }
-                            else if (p.PropertyType == typeof(System.Drawing.Color))
-                            {
-                                System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
-                                p.SetValue(o.WinControl, c, null);
+                                o.Nome = attribute.Value;
                             }
                             else
                             {
-                                p.SetValue(o.WinControl, attribute.Value, null);
+                                p = baseInterface.GetProperty(attribute.Name);
+                                if (p.PropertyType == typeof(int))
+                                {
+                                    p.SetValue(o.WinControl, Convert.ToInt32(attribute.Value), null);
+                                }
+                                else if (p.PropertyType == typeof(float))
+                                {
+                                    p.SetValue(o.WinControl, float.Parse(attribute.Value), null);
+                                }
+                                else if (p.PropertyType == typeof(System.Drawing.Color))
+                                {
+                                    System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
+                                    p.SetValue(o.WinControl, c, null);
+                                }
+                                else
+                                {
+                                    p.SetValue(o.WinControl, attribute.Value, null);
+                                }
                             }
                         }
 
@@ -931,6 +945,11 @@ namespace CogEngine.WinForms
                                     nodePropriedades.AppendChild(nodeProp);
                                 }
                             }
+                            nodeProp = xml.CreateNode(XmlNodeType.Element, "Propriedade", "");
+                            attribute = xml.CreateAttribute("Nome");
+                            attribute.Value = ((ICogEngineWinControl)c).Objeto.Nome;
+                            nodeProp.Attributes.Append(attribute);
+                            nodePropriedades.AppendChild(nodeProp);
                         }
                     }
                 }
@@ -1034,8 +1053,6 @@ namespace CogEngine.WinForms
             _ListaScripts = new BindingList<Script>();
             LstScript.DataSource = _ListaScripts;
             PropertyControl.SelectedObject = null;
-            ConcentradorTexto._Num = 1;
-            Triangulo.Num = 1;
             _NumCena = 1;
         }
 

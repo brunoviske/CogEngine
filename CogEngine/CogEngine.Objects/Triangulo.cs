@@ -9,7 +9,6 @@ namespace CogEngine.Objects
     {
         private FiguraWinControl _TrianguloWinControl;
         private FiguraXNAControl _TrianguloXNAControl;
-        private string _Nome;
 
         protected override AbstractImageControl FiguraWinControl
         {
@@ -40,26 +39,9 @@ namespace CogEngine.Objects
             get { return Configuracao.RetornarPastaArquivos() + "\\triangulo.JPG"; }
         }
 
-        public override string Nome
+        protected override string Prefixo
         {
-            get
-            {
-                if (_Nome == null)
-                {
-                    _Nome = Triangulo.GetNome();
-                }
-                return _Nome;
-            }
-            set
-            {
-                _Nome = value;
-            }
-        }
-
-        public static int Num = 1;
-        private static string GetNome()
-        {
-            return "Triângulo " + Num++;
+            get { return "Triângulo"; }
         }
     }
 }
