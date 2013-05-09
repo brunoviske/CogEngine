@@ -93,6 +93,18 @@ namespace CogEngine.Objects.WinForms
         {
             get;
             set;
-        }        
+        }
+
+        public string Nome
+        {
+            get
+            {
+                return Objeto.Nome;
+            }
+            set
+            {
+                Objeto.Nome = value;
+            }
+        }
     }
 }

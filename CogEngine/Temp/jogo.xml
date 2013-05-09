@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Jogo>
+  <Cena Nome="Principal" Cor="-10185235">
+    <Objetos>
+      <Objeto type="CogEngine.Objects.Quadrado">
+        <Propriedades>
+          <Propriedade Altura="46" />
+          <Propriedade Largura="141" />
+          <Propriedade PosicaoX="304" />
+          <Propriedade PosicaoY="240" />
+          <Propriedade ZIndex="0" />
+          <Propriedade Nome="NovoQuadrado" />
+        </Propriedades>
+      </Objeto>
+      <Objeto type="CogEngine.Objects.ImagemObjeto">
+        <Propriedades>
+          <Propriedade Altura="80" />
+          <Propriedade Largura="100" />
+          <Propriedade PosicaoX="251" />
+          <Propriedade PosicaoY="213" />
+          <Propriedade ZIndex="-1" />
+          <Propriedade CaminhoImagem="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Arquivos\video-game-controller.jpg" />
+          <Propriedade Nome="Img" />
+        </Propriedades>
+        <Script Assembly="C:\Users\Emerson\Documents\GitHub\CogEngine\CogEngine\Temp\Script_2.dll" Namespace="" />
+      </Objeto>
+    </Objetos>
+  </Cena>
+  <Sons />
+</Jogo>

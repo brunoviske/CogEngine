@@ -72,6 +72,8 @@ namespace CogEngine.Objects.WinForms
         public void RemoverObjeto(ConcentradorObjeto item)
         {
             Painel.Controls.Remove((Control)item.WinControl);
+            _ListaObjeto.Remove(item);
+            item.Remover();
         }
 
         protected override int Comparar(ConcentradorObjeto x, ConcentradorObjeto y)

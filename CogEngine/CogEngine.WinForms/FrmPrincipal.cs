@@ -147,12 +147,17 @@ namespace CogEngine.WinForms
         {
             try
             {
-                TreeViewObjetos.Nodes[e.ID].Text = e.NomeNovo;
+                TreeViewObjetos.Nodes.Find(e.ID, true)[0].Text = e.NomeNovo;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format("Falha ao atribuir o nome ao componente. Detalhes: {0}", ex.Message), "CogEngine - Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void OnPropriedadeInvalida(object sender, PropriedadeInvalidaEvent e)
+        {
+            MessageBox.Show(e.MensagemErro, "Erro ao alterar " + e.NomePropriedade);
         }
 
         private void CarregarCena(CenaWinForm cena)
@@ -489,18 +494,20 @@ namespace CogEngine.WinForms
             {
                 ObjetoAttribute o = (ObjetoAttribute)LstControles.SelectedItem;
                 ConcentradorObjeto objeto = (ConcentradorObjeto)o.TipoRelacionado.GetConstructor(Type.EmptyTypes).Invoke(null);
+                objeto.IniciarNome();
                 if (objeto.WinControl != null)
                 {
-                    objeto.IniciarNome();
                     Control c = objeto.WinControl.InitWinControl();
 
+                    objeto.PropriedadeInvalida += OnPropriedadeInvalida;
+                    objeto.NomeAlterado += OnNomeChanged;
                     c.Click += ControClick;
                     c.MouseDown += new MouseEventHandler(ControMouseDown);
                     c.MouseUp += new MouseEventHandler(ControMouseUp);
                     c.MouseMove += new MouseEventHandler(ControMouseMove);
 
                     _CenaAtual.AdicionarObjeto(objeto);
-                    TreeViewObjetos.Nodes[_CenaAtual.ID].Nodes.Add(objeto.Nome);
+                    TreeViewObjetos.Nodes[_CenaAtual.ID].Nodes.Add(objeto.ID, objeto.Nome);
                 }
                 else
                 {
@@ -674,7 +681,7 @@ namespace CogEngine.WinForms
                         ConcentradorObjeto objeto = cena.ListarObjetos().First(f => f.Nome == TreeViewObjetos.SelectedNode.Text);
                         cena.RemoverObjeto(objeto);
 
-                        TreeViewObjetos.Nodes.Remove(TreeViewObjetos.SelectedNode);
+                        TreeViewObjetos.SelectedNode.Remove();
                     }
         }
 
@@ -818,7 +825,10 @@ namespace CogEngine.WinForms
                         ctr.MouseMove += new MouseEventHandler(ControMouseMove);
 
                         cena.AdicionarObjeto(o);
-                        TreeViewObjetos.Nodes[cena.ID].Nodes.Add(o.Nome);
+                        TreeViewObjetos.Nodes[cena.ID].Nodes.Add(o.ID, o.Nome);
+
+                        o.PropriedadeInvalida += OnPropriedadeInvalida;
+                        o.NomeAlterado += OnNomeChanged;
                     }
                 }
             }
