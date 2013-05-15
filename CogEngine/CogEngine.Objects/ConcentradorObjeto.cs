@@ -9,8 +9,8 @@ namespace CogEngine.Objects
 {
     public abstract class ConcentradorObjeto
     {
-        private static List<ConcentradorObjeto> _Lista = new List<ConcentradorObjeto>();
         protected abstract string Prefixo { get; }
+        public Jogo Jogo { get; private set; }
         private string _Nome = null;
         public string Nome
         {
@@ -28,7 +28,7 @@ namespace CogEngine.Objects
                         PropriedadeInvalida(this, evento);
                     }
                 }
-                else if (_Lista.FirstOrDefault(c => c.Nome == value) == null)
+                else if (Jogo.ListaObjeto.FirstOrDefault(c => c.Nome == value) == null)
                 {
                     _Nome = value;
                     if (NomeAlterado != null)
@@ -58,14 +58,15 @@ namespace CogEngine.Objects
                 do
                 {
                     nome = Prefixo + " " + i++;
-                } while (_Lista.FirstOrDefault(c => c.Nome == nome) != null);
+                } while (Jogo.ListaObjeto.FirstOrDefault(c => c.Nome == nome) != null);
                 _Nome = nome;
             }
         }
 
-        public ConcentradorObjeto()
+        public ConcentradorObjeto(Jogo jogo)
         {
-            _Lista.Add(this);
+            Jogo = jogo;
+            Jogo.ListaObjeto.Add(this);
             ID = Guid.NewGuid().ToString();
         }
 
@@ -73,15 +74,15 @@ namespace CogEngine.Objects
         public abstract ICogEngineXNAControl XNAControl { get; }
         public abstract Type BaseInterface { get; }
         public IObjetoScript Script { get; set; }
-       
+
         ~ConcentradorObjeto()
         {
-            _Lista.Remove(this);
+            Jogo.ListaObjeto.Remove(this);
         }
 
         internal void Remover()
         {
-            _Lista.Remove(this);
+            Jogo.ListaObjeto.Remove(this);
         }
     }
 }

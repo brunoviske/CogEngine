@@ -7,6 +7,8 @@ namespace CogEngine.Objects
     [Objeto("Quadrado", typeof(Quadrado))]
     public class Quadrado : FiguraObjeto
     {
+        public Quadrado(Jogo jogo) : base(jogo) { }
+
         private FiguraWinControl _QuadradoWinControl;
         private FiguraXNAControl _QuadradoXNAControl;
 
@@ -34,9 +36,9 @@ namespace CogEngine.Objects
             }
         }
 
-        internal override string CaminhoArquivo
+        internal override ArquivoPadrao Arquivo
         {
-            get { return Configuracao.RetornarPastaArquivos() + "\\quadrado.jpg"; }
+            get { return ArquivoPadrao.ImagemQuadrado; }
         }
 
         protected override string Prefixo

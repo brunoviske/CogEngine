@@ -188,8 +188,8 @@
             // 
             // LstControles
             // 
-            this.LstControles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LstControles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LstControles.FormattingEnabled = true;
             this.LstControles.Location = new System.Drawing.Point(12, 85);
             this.LstControles.Name = "LstControles";
@@ -218,8 +218,8 @@
             // 
             // LstScript
             // 
-            this.LstScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LstScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LstScript.FormattingEnabled = true;
             this.LstScript.Location = new System.Drawing.Point(12, 336);
             this.LstScript.Name = "LstScript";
@@ -322,10 +322,6 @@
             this.LstSons.Name = "LstSons";
             this.LstSons.Size = new System.Drawing.Size(138, 95);
             this.LstSons.TabIndex = 14;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // FrmPrincipal
             // 

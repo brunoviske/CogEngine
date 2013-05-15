@@ -7,6 +7,8 @@ namespace CogEngine.Objects
     [Objeto("Triângulo", typeof(Triangulo))]
     public class Triangulo : FiguraObjeto
     {
+        public Triangulo(Jogo jogo) : base(jogo) { }
+
         private FiguraWinControl _TrianguloWinControl;
         private FiguraXNAControl _TrianguloXNAControl;
 
@@ -34,9 +36,9 @@ namespace CogEngine.Objects
             }
         }
 
-        internal override string CaminhoArquivo
+        internal override ArquivoPadrao Arquivo
         {
-            get { return Configuracao.RetornarPastaArquivos() + "\\triangulo.JPG"; }
+            get { return ArquivoPadrao.ImagemTriangulo; }
         }
 
         protected override string Prefixo

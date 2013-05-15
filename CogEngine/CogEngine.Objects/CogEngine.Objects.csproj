@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -46,9 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractImagemObjeto.cs" />
+    <Compile Include="AlteracaoListaEventArgs.cs" />
+    <Compile Include="AlteracaoListaEventHandler.cs" />
     <Compile Include="Cena.cs" />
+    <Compile Include="CompiladorJogo.cs" />
     <Compile Include="ConcentradorObjeto.cs" />
     <Compile Include="Configuracao.cs" />
+    <Compile Include="Jogo.cs" />
     <Compile Include="Dicionario.cs" />
     <Compile Include="FiguraObjeto.cs" />
     <Compile Include="GameProxy.cs" />
@@ -67,6 +72,7 @@
     <Compile Include="PropriedadeInvalidaHandler.cs" />
     <Compile Include="Plataforma.cs" />
     <Compile Include="Quadrado.cs" />
+    <Compile Include="Script.cs" />
     <Compile Include="Som.cs" />
     <Compile Include="WinForms\AbstractImageControl.cs">
       <SubType>Component</SubType>

@@ -13,6 +13,8 @@ namespace CogEngine.Objects.WinForms
         [Browsable(false)]
         public Panel Painel { get; private set; }
 
+        public event NomeChangedEventHandler OnNomeChanged;
+
         public override Color Cor
         {
             get
@@ -60,27 +62,24 @@ namespace CogEngine.Objects.WinForms
             base.AdicionarObjeto(item);
         }
 
+        public override void RemoverObjeto(ConcentradorObjeto item)
+        {
+            Painel.Controls.Remove((Control)item.WinControl);
+            base.RemoverObjeto(item);
+        }
+
         public void CarregarPainel()
         {
             Painel.Controls.Clear();
-            for (int i = _ListaObjeto.Count - 1; i >= 0; i--)
+            for (int i = ListaObjeto.Count - 1; i >= 0; i--)
             {
-                Painel.Controls.Add((Control)_ListaObjeto[i].WinControl);
+                Painel.Controls.Add((Control)ListaObjeto[i].WinControl);
             }
-        }
-
-        public void RemoverObjeto(ConcentradorObjeto item)
-        {
-            Painel.Controls.Remove((Control)item.WinControl);
-            _ListaObjeto.Remove(item);
-            item.Remover();
         }
 
         protected override int Comparar(ConcentradorObjeto x, ConcentradorObjeto y)
         {
             return x.WinControl.ZIndex.CompareTo(y.WinControl.ZIndex);
         }
-
-        public event NomeChangedEventHandler OnNomeChanged;
     }
 }

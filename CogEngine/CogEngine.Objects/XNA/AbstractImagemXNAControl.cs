@@ -11,6 +11,13 @@ namespace CogEngine.Objects.XNA
 {
     public abstract class AbstractImagemXNAControl : ICogEngineXNAControl
     {
+        protected AbstractImagemObjeto Objeto { get; private set; }
+
+        public AbstractImagemXNAControl(AbstractImagemObjeto objeto)
+        {
+            Objeto = objeto;
+        }
+
         public Texture2D Textura
         {
             get;
@@ -19,9 +26,17 @@ namespace CogEngine.Objects.XNA
 
         public abstract string CaminhoImagem { get; set; }
 
+        private string CaminhoAbsolutoImagem
+        {
+            get
+            {
+                return Objeto.Jogo.RetornarCaminhoAbsoluto(EstruturaProjeto.PastaImagem, CaminhoImagem);
+            }
+        }
+
         public void LoadContent(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
-            using (FileStream f = new FileStream(CaminhoImagem, FileMode.Open))
+            using (FileStream f = new FileStream(CaminhoAbsolutoImagem, FileMode.Open))
             {
                 Textura = Texture2D.FromStream(graphicsDevice, f);
             }

@@ -4,7 +4,12 @@ namespace CogEngine.Objects
 {
     public abstract class FiguraObjeto : AbstractImagemObjeto
     {
-        internal abstract string CaminhoArquivo { get; }
+        public FiguraObjeto(Jogo jogo) : base(jogo) { }
+
+        /// <summary>
+        /// Arquivo padrao do projeto com o nome da imagem usada para contruir a figura
+        /// </summary>
+        internal abstract ArquivoPadrao Arquivo { get; }
         public override sealed Type BaseInterface
         {
             get { return typeof(IFigura); }

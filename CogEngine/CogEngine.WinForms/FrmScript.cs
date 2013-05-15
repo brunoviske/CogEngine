@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using CogEngine.ScriptEditor;
+using CogEngine.Objects;
 
 namespace CogEngine.WinForms
 {

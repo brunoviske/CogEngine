@@ -7,9 +7,11 @@ namespace CogEngine.Objects.WinForms
 {
     public class SomWinForm : Som
     {
-        public SomWinForm(string caminho)
+        public SomWinForm(Jogo jogo) : base(jogo) { }
+
+        public void CopiarArquivo(string caminho)
         {
-            CaminhoCompleto = new ManipuladorArquivo().SalvarArquivo(caminho);
+            CaminhoRelativo = Jogo.RetornarCaminhoRelativo(EstruturaProjeto.PastaSom, new ManipuladorArquivo(Jogo).SalvarArquivo(caminho));
         }
     }
 }

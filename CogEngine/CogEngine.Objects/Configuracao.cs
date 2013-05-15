@@ -1,46 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.IO;
 
 namespace CogEngine.Objects
 {
-    public static class Configuracao
+    static class Configuracao
     {
-        private static string Prefixo;
-
-        public static string RetornarPastaArquivos()
+        public static string PastaArquivos
         {
-            return RetornarCaminhoAbsoluto(Prefixo + "Arquivos");
+            get
+            {
+                const string chaveConfig = "CaminhoRelativoPastaArquivos";
+                string caminhoRelativo;
+                if (ConfigurationManager.AppSettings.AllKeys.Contains(chaveConfig))
+                {
+                    caminhoRelativo = ConfigurationManager.AppSettings[chaveConfig];
+                    if (!caminhoRelativo.EndsWith("\\")) caminhoRelativo += '\\';
+                }
+                else
+                {
+                    caminhoRelativo = "..\\..\\..\\Arquivos\\";
+                }
+                return caminhoRelativo;
+            }
         }
 
-        public static string RetornarArquivoJogo()
+        public static string PastaTemp
         {
-            return RetornarPastaTemp() + "\\jogo.xml";
+            get
+            {
+                return PastaArquivos + "Temp\\";
+            }
         }
 
-        public static string RetornarPastaTemp()
+        public static string PastaJogoTemplate
         {
-            return RetornarCaminhoAbsoluto(Prefixo + "Temp");
-        }
-
-        public static string RetornarCaminhoCompilador()
-        {
-            return @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe";
-        }
-
-        private static string RetornarCaminhoAbsoluto(string caminhoRelativo)
-        {
-            if (!Directory.Exists(caminhoRelativo))
-                Directory.CreateDirectory(caminhoRelativo);
-
-            return new DirectoryInfo(caminhoRelativo).FullName;
-        }
-
-        public static string RetornarReferenciaCogEngine()
-        {
-            return new FileInfo(Prefixo + "Referencias\\CogEngine.Objects.dll").FullName;
+            get
+            {
+                return PastaArquivos + "Jogo Template\\";
+            }
         }
 
         public static string RetornarPastaXNA()
@@ -55,14 +53,6 @@ namespace CogEngine.Objects
             {
                 return null;
             }
-        }
-
-        public static void Iniciar(Plataforma plataforma)
-        {
-            if (plataforma == Plataforma.Forms)
-                Prefixo = "..\\..\\..\\";
-            else if (plataforma == Plataforma.XNA)
-                Prefixo = "..\\..\\..\\..\\..\\";
         }
     }
 }

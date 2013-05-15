@@ -20,7 +20,7 @@ namespace CogEngine.Objects.WinForms
 
         public override System.Windows.Forms.Control InitWinControl()
         {
-            CaminhoImagem = Configuracao.RetornarPastaArquivos() + "\\video-game-controller.jpg";
+            CaminhoImagem = _Objeto.Jogo.CopiarArquivoPadrao(ArquivoPadrao.ImagemControleJogo, EstruturaProjeto.PastaImagem, true);
             return base.InitWinControl();
         }
 
@@ -39,7 +39,7 @@ namespace CogEngine.Objects.WinForms
             set
             {
                 Image = value;
-                _CaminhoImagem = new ManipuladorArquivo().SalvarImagem(value);
+                _CaminhoImagem = new ManipuladorArquivo(Objeto.Jogo).SalvarImagem(value);
             }
         }
 
@@ -50,12 +50,12 @@ namespace CogEngine.Objects.WinForms
         {
             get
             {
-                return _CaminhoImagem;
+                return _Objeto.Jogo.RetornarCaminhoRelativo(EstruturaProjeto.PastaImagem, _CaminhoImagem);
             }
             set
             {
-                _CaminhoImagem = value;
-                Image = new System.Drawing.Bitmap(value);
+                _CaminhoImagem = _Objeto.Jogo.RetornarCaminhoAbsoluto(EstruturaProjeto.PastaImagem, value);
+                Image = new System.Drawing.Bitmap(_CaminhoImagem);
             }
         }
     }

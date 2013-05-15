@@ -9,12 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogEngine.GameTemplate", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogEngine.GameTemplateContent", "CogEngine.GameTemplate\CogEngine.GameTemplateContent\CogEngine.GameTemplateContent.contentproj", "{6B3B5639-53CD-4178-8ECF-2BF9DE1AFD83}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arquivos", "Arquivos", "{DC7837AD-1874-4C79-B6F5-68295C5A1EB9}"
-	ProjectSection(SolutionItems) = preProject
-		Arquivos\triangulo.JPG = Arquivos\triangulo.JPG
-		Arquivos\video-game-controller.jpg = Arquivos\video-game-controller.jpg
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogEngine.ScriptEditor", "CogEngine.ScriptEditor\CogEngine.ScriptEditor.csproj", "{EB147E6B-E794-49FF-855C-1B06275C03FB}"
 EndProject
 Global

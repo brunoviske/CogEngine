@@ -7,8 +7,22 @@ namespace CogEngine.Objects
 {
     public abstract class Som
     {
-        public virtual string CaminhoCompleto { get; set; }
+        protected Jogo Jogo { get; private set; }
+
+        public Som(Jogo jogo)
+        {
+            Jogo = jogo;
+        }
+
+        public virtual string CaminhoRelativo { get; set; }
         public string Nome { get; set; }
+        public string CaminhoAbsoluto
+        {
+            get
+            {
+                return Jogo.RetornarCaminhoAbsoluto(EstruturaProjeto.PastaSom, CaminhoRelativo);
+            }
+        }
         public override string ToString()
         {
             return Nome;

@@ -5,6 +5,8 @@ namespace CogEngine.Objects
 {
     public abstract class AbstractImagemObjeto : ConcentradorObjeto
     {
+        public AbstractImagemObjeto(Jogo jogo) : base(jogo) { }
+
         protected abstract AbstractImageControl FiguraWinControl { get; }
         protected abstract AbstractImagemXNAControl FiguraXNAControl { get; }
 

@@ -5,6 +5,8 @@ namespace CogEngine.Objects
     [Objeto("Imagem", typeof(ImagemObjeto))]
     public class ImagemObjeto : AbstractImagemObjeto
     {
+        public ImagemObjeto(Jogo jogo) : base(jogo) { }
+
         private WinForms.CustomImageWincontrol _CustomWinImage;
         private XNA.CustomImageXNAControl _CustomXNAImage;
 
@@ -26,7 +28,7 @@ namespace CogEngine.Objects
             {
                 if (_CustomXNAImage == null)
                 {
-                    _CustomXNAImage = new XNA.CustomImageXNAControl();
+                    _CustomXNAImage = new XNA.CustomImageXNAControl(this);
                 }
                 return _CustomXNAImage;
             }

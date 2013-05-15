@@ -15,11 +15,11 @@ namespace CogEngine.Objects.WinForms
     public class FiguraWinControl : AbstractImageControl
     {
         private FiguraObjeto _FiguraObjeto;
-
+        
         internal FiguraWinControl(FiguraObjeto objeto)
         {
             _FiguraObjeto = objeto;
-            Image = new System.Drawing.Bitmap(_FiguraObjeto.CaminhoArquivo);
+            Image = new System.Drawing.Bitmap(_FiguraObjeto.Jogo.CopiarArquivoPadrao(_FiguraObjeto.Arquivo, EstruturaProjeto.PastaImagem, false));
         }
 
         [Browsable(false)]

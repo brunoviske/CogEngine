@@ -11,18 +11,26 @@ namespace CogEngine.Objects.XNA
 {
     public class FiguraXNAControl : AbstractImagemXNAControl, IFigura
     {
-        private FiguraObjeto _Figura;
-
-        public FiguraXNAControl(FiguraObjeto figura)
+        private FiguraObjeto Figura
         {
-            _Figura = figura;
+            get
+            {
+                return (FiguraObjeto)Objeto;
+            }
+        }
+
+        private string _CaminhoImagem;
+
+        public FiguraXNAControl(FiguraObjeto figura) : base(figura)
+        {
+            _CaminhoImagem = Jogo.RetornarArquivoPadrao(Figura.Arquivo);
         }
 
         public override string CaminhoImagem
         {
             get
             {
-                return _Figura.CaminhoArquivo;
+                return _CaminhoImagem;
             }
             set
             {

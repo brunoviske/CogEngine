@@ -10,6 +10,8 @@ namespace CogEngine.Objects
     [Objeto("Texto", typeof(ConcentradorTexto))]
     public class ConcentradorTexto : ConcentradorObjeto
     {
+        public ConcentradorTexto(Jogo jogo) : base(jogo) { }
+
         private TextoWinControl _TextoWinControl;
         public override ICogEngineWinControl WinControl
         {

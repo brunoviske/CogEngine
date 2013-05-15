@@ -12,6 +12,7 @@ using CogEngine.Objects;
 using System.Xml;
 using System.Reflection;
 using CogEngine.Objects.XNA;
+using System.IO;
 
 namespace CogEngine.GameTemplate
 {
@@ -22,10 +23,8 @@ namespace CogEngine.GameTemplate
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
 
-        private List<Cena> _ListaCena;
-        private List<SomXNA> _ListaSom;
+        private Jogo _Jogo;
         private Cena _CenaAtual;
         private GameProxy _GameProxy;
 
@@ -33,8 +32,6 @@ namespace CogEngine.GameTemplate
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            _ListaCena = new List<Cena>();
-            _ListaSom = new List<SomXNA>();
             _GameProxy = new GameProxy(this);
             IsMouseVisible = true;
         }
@@ -60,92 +57,27 @@ namespace CogEngine.GameTemplate
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            Configuracao.Iniciar(Plataforma.XNA);
 
-            string arquivo = Configuracao.RetornarArquivoJogo();
-            XmlDocument document = new XmlDocument();
-            document.Load(arquivo);
-            XmlNode jogo = document.GetElementsByTagName("Jogo")[0];
-            PropertyInfo p;
-            Type type = typeof(ConcentradorObjeto);
-            ConcentradorObjeto o;
-            Type typeOriginal;
-            Type baseInterface;
-            XmlAttribute attribute;
-            Cena cena;
+            string arquivo = RetornarArquivoJogo();
+            _Jogo = Jogo.AbrirJogo(arquivo, _GameProxy, Content, graphics);
+            CarregarCena("Principal");
+        }
 
-            foreach (XmlNode cenaNode in jogo.ChildNodes)
+        private string RetornarArquivoJogo()
+        {
+            string extensao = Jogo.EXTENSAO_COMPILADO;
+            string[] arquivos = Directory.GetFiles(Directory.GetCurrentDirectory(), "*" + extensao);
+            if (arquivos.Length == 1)
             {
-                if (cenaNode.Name == "Cena")
-                {
-                    cena = new Cena();
-                    cena.Nome = cenaNode.Attributes["Nome"].Value;
-                    cena.Cor = System.Drawing.Color.FromArgb(int.Parse(cenaNode.Attributes["Cor"].Value));
-                    _ListaCena.Add(cena);
-
-                    foreach (XmlNode objetoNode in cenaNode.SelectNodes("Objetos/Objeto"))
-                    {
-                        typeOriginal = Assembly.GetAssembly(type).GetType(objetoNode.Attributes["type"].Value);
-                        o = (ConcentradorObjeto)typeOriginal.GetConstructor(Type.EmptyTypes).Invoke(null);
-                        baseInterface = o.BaseInterface;
-                        foreach (XmlNode nodeProp in objetoNode.ChildNodes[0].ChildNodes)
-                        {
-                            attribute = nodeProp.Attributes[0];
-                            if (attribute.Name == "Nome")
-                            {
-                                o.Nome = attribute.Value;
-                            }
-                            else
-                            {
-                                p = baseInterface.GetProperty(attribute.Name);
-                                if (p.PropertyType == typeof(int))
-                                {
-                                    p.SetValue(o.XNAControl, Convert.ToInt32(attribute.Value), null);
-                                }
-                                else if (p.PropertyType == typeof(float))
-                                {
-                                    p.SetValue(o.XNAControl, float.Parse(attribute.Value), null);
-                                }
-                                else if (p.PropertyType == typeof(System.Drawing.Color))
-                                {
-                                    System.Drawing.Color c = System.Drawing.Color.FromArgb(int.Parse(attribute.Value));
-                                    p.SetValue(o.XNAControl, c, null);
-                                }
-                                else
-                                {
-                                    p.SetValue(o.XNAControl, attribute.Value, null);
-                                }
-                            }
-                        }
-                        if (objetoNode.ChildNodes.Count > 1)
-                        {
-                            XmlNode nodeScript = objetoNode.ChildNodes[1];
-                            string assemblyFile = nodeScript.Attributes["Assembly"].Value;
-                            Assembly assembly = Assembly.LoadFrom(assemblyFile);
-                            Type userType = assembly.GetTypes()[0];
-                            IObjetoScript script = (IObjetoScript)userType.GetConstructor(new Type[]{
-                         typeof(GameProxy), typeof(ICogEngineXNAControl)   
-                        }).Invoke(new object[] { _GameProxy, o.XNAControl });
-                            o.Script = script;
-                        }
-                        o.XNAControl.LoadContent(Content, graphics.GraphicsDevice);
-                        cena.AdicionarObjeto(o);
-                    }
-                }
-                CarregarCena("Principal");
+                return arquivos[0];
             }
-
-            SomXNA som;
-            foreach (XmlNode nodeSom in jogo.SelectNodes("Sons/Som"))
+            else if (arquivos.Length == 0)
             {
-                som = new SomXNA();
-                attribute = nodeSom.Attributes["CaminhoArquivo"];
-                som.CaminhoCompleto = attribute.Value;
-                attribute = nodeSom.Attributes["Nome"];
-                som.Nome = attribute.Value;
-                som.Iniciar();
-                _ListaSom.Add(som);
+                throw new Exception("Não existe arquivo de configuração do jogo");
+            }
+            else
+            {
+                throw new Exception("Foram encontrados mais de um arquivo para configuração do jogo");
             }
         }
 
@@ -190,7 +122,7 @@ namespace CogEngine.GameTemplate
             GraphicsDevice.Clear(new Color(_CenaAtual.Cor.R, _CenaAtual.Cor.G, _CenaAtual.Cor.B));
             spriteBatch.Begin();
 
-            
+
 
             foreach (ConcentradorObjeto item in _CenaAtual.ListarObjetos())
             {
@@ -203,12 +135,12 @@ namespace CogEngine.GameTemplate
 
         public void CarregarCena(string nomeCena)
         {
-            _CenaAtual = _ListaCena.First(c => c.Nome == nomeCena);
+            _CenaAtual = _Jogo.ListarCena().First(c => c.Nome == nomeCena);
         }
 
         public void Tocar(string nome)
         {
-            SomXNA som = _ListaSom.FirstOrDefault(s => s.Nome == nome);
+            SomXNA som = (SomXNA)_Jogo.ListarSom().FirstOrDefault(s => s.Nome == nome);
             if (som != null)
             {
                 som.Tocar();

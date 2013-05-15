@@ -9,11 +9,13 @@ namespace CogEngine.Objects.XNA
 {
     public class SomXNA : Som
     {
+        public SomXNA(Jogo jogo) : base(jogo) { }
+
         private SoundEffect _Sound;
 
         public void Iniciar()
         {
-            using (FileStream f = File.Open(CaminhoCompleto, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream f = File.Open(CaminhoAbsoluto, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 _Sound = SoundEffect.FromStream(f);
             }
