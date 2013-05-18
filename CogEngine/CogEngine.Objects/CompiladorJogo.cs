@@ -200,7 +200,7 @@ namespace CogEngine.Objects
                 int i = erro.IndexOf("error ");
                 throw new Exception(erro.Substring(i));
             }
-            return dll;
+            return script.NomeClasse + ".dll";
         }
 
         private string EscreverClasse(Script s)
